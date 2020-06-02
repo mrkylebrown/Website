@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap 4 Example</title>
+  <title>Mr. Brown's Website</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -10,10 +10,73 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">Home</a>
 
-<div class="container p-3 my-3 bg-dark text-white">
-  <h1>My First Bootstrap Page</h1>
-  <p>This is some text.</p>
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Grade 9 Math</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Grade 10 Math
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Math 10-3</a>
+                    <a class="dropdown-item" href="#">Math 10C</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Grade 11 Math
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Math 20-3</a>
+                    <a class="dropdown-item" href="#">Math 20-2</a>
+                    <a class="dropdown-item" href="#">Math 20-1</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Grade 12 Math
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Math 30-3</a>
+                    <a class="dropdown-item" href="#">Math 30-2</a>
+                    <a class="dropdown-item" href="#">Math 30-1</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Physics
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Physics 20</a>
+                    <a class="dropdown-item" href="#">Physics 30</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Coding</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-lg p-3 my-3 bg-dark text-white">
+<h1 class="display-2">Mr. Brown's Website</h1>
+  <p>Hello Bentley students and parents. My name is Kyle Brown, and this year I will be teaching Physics, Robotics and all of
+the Math courses. We will be using this website, or Hapara Workspaces, for our courses.
+
+Please use the buttons above to find your class.
+
+I hope you have a wonderful year!</p>
 </div>
 
 </body>
