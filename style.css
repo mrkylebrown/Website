@@ -3,5 +3,9 @@ body {
 }
 
 .back {
-    background-color:lightgray
+    background-color:lightgray;
+}
+
+p {
+	font-size: 10px;
 }
