@@ -4,6 +4,7 @@ body {
 
 .back {
     background-color:lightgray;
+	background-attachment: fixed;
 }
 
 p {
