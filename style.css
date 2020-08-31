@@ -4,8 +4,15 @@ body {
 
 .back {
     background-color:lightgray;
+	background-attachment: fixed;
 }
 
+<<<<<<< HEAD
 
 
 
+=======
+p {
+	font-size: 1.2em;
+}
+>>>>>>> origin/master
