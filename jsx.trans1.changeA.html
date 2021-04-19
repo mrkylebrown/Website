@@ -18,7 +18,8 @@
   boundingbox: [-4, 6, 8, -6],
   axis: true,
   showCopyright: false,
-  showNavigation: false
+  showNavigation: false,
+  pan:{enabled:false}
 });
 
 var a = board.create('slider', [
@@ -41,8 +42,10 @@ var text = board.create('text', [1.5, -1, function() {
   return 'y = ' + a.Value().toFixed(1) + '(x-3)^2'
 }], {
   fontSize: 25,
-  Color: 'red'
+  Color: 'red',
+  fixed: true
 });
+
   </script>
   
   </body>
