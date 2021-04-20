@@ -15,10 +15,11 @@
 
   <script>
    var board = JXG.JSXGraph.initBoard('jxgbox', {
-  boundingbox: [-4, 6, 8, -6],
+  boundingbox: [-1, 6, 10, -4],
   axis: true,
   showCopyright: false,
-  showNavigation: false
+  showNavigation: false,
+  pan:{enabled:false}
 });
 
 var a = board.create('slider', [
@@ -41,7 +42,12 @@ var text = board.create('text', [1.5, -1, function() {
   return 'y = ' + a.Value().toFixed(1) + '(x-3)^2'
 }], {
   fontSize: 25,
-  Color: 'red'
+  Color: 'red',
+  fixed:true
+});
+
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [7,3], [3,3] ], {
+opacity:0.2
 });
   </script>
   
