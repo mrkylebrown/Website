@@ -45,13 +45,13 @@ var graph = board.create('functiongraph',
    ['m.Value()*x + b.Y()',-5,5],{
   firstArrow:true,
   lastArrow:true,
-  strokeWidth:5
+  strokeWidth:3
   });
 
 var text = board.create('text', [1, -4.5, function() {
   return 'y =' + a.Value().toFixed(1) + 'x  +' + b.Y().toFixed(1);
 }], {
-  fontSize: 30,
+  fontSize: 20,
   Color: 'red',
   fixed: true
 });
@@ -73,7 +73,7 @@ var l1 = board.create('segment', [inter1, inter2],{
 color:"red",
 firstArrow:true,
 lastArrow:true,
-strokeWidth:4,
+strokeWidth:2,
 });
 
 ///run
@@ -81,7 +81,7 @@ var l2 = board.create('segment', [inter1, b],{
 color:"red",
 firstArrow:true,
 lastArrow:true,
-strokeWidth:4
+strokeWidth:2
 });
 
 var ave2 = board.create('text',
