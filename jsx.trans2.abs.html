@@ -49,16 +49,26 @@ var graph = board.create('functiongraph',
   strokeColor:"green"
   });
 
-var text = board.create('text', [1.5, -1, function() {
+/*var text = board.create('text', [1.5, -1, function() {
   return 'y = |x|+' + a.Value().toFixed(1);
 }], {
   fontSize: 22,
   Color: 'red',
   fixed: true
+});*/
+
+board.create('text',[1, -2,
+function() {
+return '\\[y = |x|+' + a.Value().toFixed(1) + '\\]';
+}],
+{fontSize: 20,
+fixed:true
 });
+
 var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-5,-5], [3,3] ], {
 opacity:0.2,fixed:true
 });
+
   </script>
   
   </body>
