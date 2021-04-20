@@ -16,7 +16,8 @@
   <script>
  
 
- var board = JXG.JSXGraph.initBoard('jxgbox', {
+ 
+var board = JXG.JSXGraph.initBoard('jxgbox', {
   boundingbox: [-5.5, 5.5, 5.5, -5.5],
   axis: true,
   showCopyright: false,
@@ -73,7 +74,7 @@ var inter2 = board.create('intersection',[graph,linev,0],{visible:false});
 /// rise
 var l1 = board.create('segment', [inter1, inter2],{
 color:"red",
-firstArrow:true,
+firstArrow:false,
 lastArrow:true,
 strokeWidth:2,
 });
@@ -82,7 +83,7 @@ strokeWidth:2,
 var l2 = board.create('segment', [inter1, b],{
 color:"red",
 firstArrow:true,
-lastArrow:true,
+lastArrow:false,
 strokeWidth:2
 });
 
@@ -104,6 +105,8 @@ fontSize:16
 var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-5,2], [3,3] ], {
 opacity:0.2
 });
+
+
 
 
 
