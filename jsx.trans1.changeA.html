@@ -14,7 +14,9 @@
   <div id="jxgbox" class="jxgbox" style="width:400px; height:300px;"></div>
 
   <script>
-   var board = JXG.JSXGraph.initBoard('jxgbox', {
+  JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('jxgbox', {
   boundingbox: [-1, 6, 10, -4],
   axis: true,
   showCopyright: false,
@@ -38,16 +40,24 @@ var graph = board.create('functiongraph',
   strokeWidth:5,
   });
 
-var text = board.create('text', [1.5, -1, function() {
+/*var text = board.create('text', [1.5, -1, function() {
   return 'y = ' + a.Value().toFixed(1) + '(x-3)^2'
 }], {
   fontSize: 25,
   Color: 'red',
   fixed:true
+}); */
+
+board.create('text',[1, -2,
+function() {
+return '\\[y = ' + a.Value().toFixed(1) + '(x-3)^2' + '\\]';
+}],
+{fontSize: 20,
+fixed:true
 });
 
 var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [7,3], [3,3] ], {
-opacity:0.2,fixed:true
+opacity:0.2
 });
   </script>
   
