@@ -8,7 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
-    
   </head>
   <body>
 
@@ -69,7 +68,7 @@ var k = board.create('slider', [
 });
 
 // The Equation
-var eq = board.create('text',[1, -1.5,
+var eq = board.create('text',[1, -1,
 function() {
 return '\\[y = af[b(x-h)]+k' + '\\]';
 }],
@@ -85,9 +84,9 @@ var graph1 = board.create('functiongraph',
   dash:2
   });
 
-//The Dynamic Graph
-var graph2 = board.create('functiongraph',
-  ['a.Value()*(b.Value()*(x-h.Value()))^(2) + k.Value()',-10,10],{
+  //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
+  var graph2 = board.create('functiongraph',
+  ['a.Value() * (b.Value()*(x-h.Value()))*(b.Value()*(x-h.Value())) + k.Value()',-10,10],{
   strokeWidth:4,
   });
 
