@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:600px; height:500px;"></div>
+
+  <script>
+ JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [-10, 10, 10, -10],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+
+//Sliders
+
+var a = board.create('slider', [
+  [3, -6],
+  [7, -6],
+  [-5, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'a',
+  withLabel:true
+});
+
+var b = board.create('slider', [
+  [3, -7],
+  [7, -7],
+  [-3, 1, 3]
+], {
+  snapWidth: 0.1,
+  name: 'b',
+  withLabel:true
+});
+
+var h = board.create('slider', [
+  [3, -8],
+  [7, -8],
+  [-10, 0, 10]
+], {
+  snapWidth: 1,
+  name: 'h',
+  withLabel:true
+});
+
+var k = board.create('slider', [
+  [3, -9],
+  [7, -9],
+  [-10, 0, 10]
+], {
+  snapWidth: 1,
+  name: 'k',
+  withLabel:true
+});
+
+// The Equation
+var eq = board.create('text',[1, -1.5,
+function() {
+return '\\[y = af[b(x-h)]+k' + '\\]';
+}],
+{fontSize: 20,
+fixed:true
+});
+
+//The static graph
+var graph1 = board.create('functiongraph',
+  ['x^2',-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2
+  });
+
+//The Dynamic Graph
+var graph2 = board.create('functiongraph',
+  ['a.Value()*(b.Value()*(x-h.Value()))^(2) + k.Value()',-10,10],{
+  strokeWidth:4,
+  });
+
+
+//The Dynamic Equation - Changes the minus when h<0
+
+
+board.create('text',[0.5, -3.5,
+function() {
+if (h.Value()>=0){
+
+return '\\[y = ' + a.Value().toFixed(1) + '[' + b.Value().toFixed(1) + '(x-' + h.Value().toFixed(0) + ')]^2 +' + k.Value().toFixed(0) + '\\]';
+
+}
+else if (h.Value()<0){
+return '\\[y = ' + a.Value().toFixed(1) + '[' + b.Value().toFixed(1) + '(x+' + Math.abs(h.Value().toFixed(0)) + ')]^2 +' + k.Value().toFixed(0) + '\\]';
+}}],
+{fontSize: 20,
+fixed:true
+});
+
+
+///The logo
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [7,7], [3,3] ], {
+opacity:0.2,
+fixed:true
+});
+
+
+
+  </script>
+  
+  </body>
+</html>
