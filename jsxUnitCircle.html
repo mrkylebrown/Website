@@ -25,6 +25,11 @@ var board = JXG.JSXGraph.initBoard('jxgbox', {
   showCopyright: false,
   showNavigation: false,
   pan:{enabled:false},
+  zoom:{
+  wheel: false,
+  pinchHorizontal: false,
+  pinchVertical: false
+  }
 
 });
 
@@ -64,25 +69,24 @@ var j = board.create('point',[-Math.sqrt(3)/2,-1/2],{fixed:true,visible:true,nam
 var k = board.create('point',[-Math.sqrt(2)/2,-Math.sqrt(2)/2],{fixed:true,visible:true,name:''})
 var l = board.create('point',[-1/2,-Math.sqrt(3)/2],{fixed:true,visible:true,name:''})
 
-var i = board.create('point',[0,-1],{fixed:true,visible:true,name:''})
+var m = board.create('point',[0,-1],{fixed:true,visible:true,name:''})
 
-var l = board.create('point',[1/2,-Math.sqrt(3)/2],{fixed:true,visible:true,name:''})
-var k = board.create('point',[Math.sqrt(2)/2,-Math.sqrt(2)/2],{fixed:true,visible:true,name:''})
-var j = board.create('point',[Math.sqrt(3)/2,-1/2],{fixed:true,visible:true,name:''})
+var n = board.create('point',[1/2,-Math.sqrt(3)/2],{fixed:true,visible:true,name:''})
+var q = board.create('point',[Math.sqrt(2)/2,-Math.sqrt(2)/2],{fixed:true,visible:true,name:''})
+var r = board.create('point',[Math.sqrt(3)/2,-1/2],{fixed:true,visible:true,name:''})
 
 
 var circle = board.create('circle',[o,1])
 
-var glider = board.create('glider',[0,1,circle],{visible:true,snapToPoints:true,attractorDistance:0.7,color:"red",size:4})
+var glider = board.create('glider',[0,1,circle],{visible:true,snapToPoints:true,attractorDistance:0.7,color:"red",size:4,name:''})
 
-var line = board.create('segment',[o,glider])
 
 /// Controls for degrees and radians
 
-var aslider = board.create('slider',[[0.8,1.5],[1.2,1.5],[0,1,1]],{snapWidth:1,label:{visible:false}})
+var aslider = board.create('slider',[[0.8,1.5],[1.0,1.5],[0,1,1]],{snapWidth:1,label:{visible:false}})
 
-var deg = board.create('text',[0.5,1.4,"Degrees"],{fixed:true,fontSize:15})
-var rad = board.create('text',[1.2,1.4,"Radians"],{fixed:true,fontSize:15})
+var deg = board.create('text',[0.4,1.5,"Degrees"],{fixed:true,fontSize:15})
+var rad = board.create('text',[1.1,1.5,"Radians"],{fixed:true,fontSize:15})
 
 /// Angle in Degrees
 
@@ -107,7 +111,7 @@ if(JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90) {
   } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30) {
     return '\\[ \\frac{\\pi}{6} \\]';
   } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0) {
-    return '\\[ 0 \\]';
+    return '\\[ 0 \\] or \\[ 2\\pi \\]';
   } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120) {
     return '\\[ \\frac{2\\pi}{3} \\]';
   } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135) {
@@ -138,8 +142,108 @@ fontColor:"red"
 }
 );
 
+//checkbox
+var checkbox = board.create('checkbox', [0.9, 1.3, 'Angle Sections']);
+    
+//Lines
+
+var line1 = board.create('segment',[j,b],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false,
+})
 
 
+var line = board.create('segment',[l,d],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[f,n],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[h,r],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[c,k],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[g,q],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[d,l],{dash:3,color:"green",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)) ? true : false
+})
+
+var line = board.create('segment',[f,n],{dash:3,color:"green",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"purple",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)) ? true : false
+})
+
+var line = board.create('segment',[e,m],{dash:3,color:"purple",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)) ? true : false
+})
+
+
+var line = board.create('segment',[o,glider])
+
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-1,1], [0.5,0.5] ], {
+opacity:0.2,fixed:true
+});
   </script>
   
   </body>
