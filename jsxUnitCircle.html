@@ -570,7 +570,7 @@ color:'red'
 
 
 var cosarrow = board.create('arrow',[o,[function() {return glider.X()},0]],{strokeColor:'red',strokeWidth:2,
-visible: ()=> (cos.Value())
+visible: ()=> (cos.Value() || tan.Value())
 });
 
 
@@ -699,8 +699,115 @@ color:'green'
 })
 
 var sinarrow = board.create('arrow',[[function(){return glider.X()},0],[function(){return glider.X()},function(){return glider.Y()}]],{strokeColor:'green',strokeWidth:2,
-visible: ()=> (sin.Value())
+visible: ()=> (sin.Value() || tan.Value())
 });
+
+
+/// Tan
+var atext = board.create('text',[1.7,0.58,
+function(){
+return '\\[ \\frac{\\sqrt3}{3}  \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ 1 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.53,
+function(){
+return '\\[ \\sqrt3 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.62,0.43,
+function(){
+return 'Undefined';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.53,
+function(){
+return '\\[ -\\sqrt3 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ -1 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)
+) ? true:false,
+fixed:true
+})
+
+/// Tan
+var atext = board.create('text',[1.7,0.58,
+function(){
+return '\\[ -\\frac{\\sqrt3}{3}  \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ 0 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180
+)
+) ? true:false,
+fixed:true
+})
 
   </script>
   
