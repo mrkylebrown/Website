@@ -144,7 +144,7 @@ fontColor:"red"
 );
 
 //checkbox
-var checkbox = board.create('checkbox', [0.9, 1.3, 'Angle Sections']);
+var checkbox = board.create('checkbox', [0.9, 1.3, 'Angle Sections'],{fixed:true});
     
 //Lines
 
@@ -213,6 +213,24 @@ JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
 })
 
 var line = board.create('segment',[g,q],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[e,m],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"red",
 visible: () => (checkbox.Value() && (
 JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
 JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
