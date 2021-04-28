@@ -13,16 +13,16 @@
   </head>
   <body>
 
-    <div class="wrap500">
-      <div id="j1" class="jxgbox"></div>
-    </div>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
 
     
   <script>
 
  JXG.Options.text.useMathJax = true;
 
-var board = JXG.JSXGraph.initBoard('j1', {
+var board = JXG.JSXGraph.initBoard('j2', {
   boundingbox: [-10, 10, 10, -10],
   axis: true,
   showCopyright: false,
@@ -75,7 +75,7 @@ var k = board.create('slider', [
 });
 
 // The Equation
-var eq = board.create('text',[1, -1,
+var eq = board.create('text',[-4, -1,
 function() {
 return '\\[y = af[b(x-h)]+k' + '\\]';
 }],
@@ -101,7 +101,7 @@ var graph1 = board.create('functiongraph',
 //The Dynamic Equation - Changes the minus when h<0
 
 
-board.create('text',[0.3, -3.5,
+board.create('text',[-4, -3.5,
 function() {
 if (h.Value()>=0){
 
@@ -122,11 +122,26 @@ opacity:0.2,
 fixed:true
 });
 
-j1.style.width = "";
-j1.style.height = "";
-var theWidth = j1.getBoundingClientRect().width;
-var theHeight = j1.getBoundingClientRect().height;
-j1.resizeContainer(theWidth, theHeight);
+window.addEventListener("resize", resizeThrottler, false);
+function resizeThrottler() {
+  if( !scrolling) {
+    if (!resizeTimeout) {
+      resizeTimeout = setTimeout(function() {
+        resizeTimeout = null;
+        if (typeof(actualResizeHandler) == "function") {
+           actualResizeHandler();
+        }
+      }, 500);
+    }
+  }
+}
+
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
 
   </script>
   
