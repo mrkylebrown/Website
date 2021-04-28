@@ -8,21 +8,28 @@
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
   </head>
   <body>
 
-  <div id="jxgbox" class="jxgbox" style="width:600px; height:500px;"></div>
+    <div class="wrap500">
+      <div id="j1" class="jxgbox"></div>
+    </div>
 
+    
   <script>
+
  JXG.Options.text.useMathJax = true;
 
-var board = JXG.JSXGraph.initBoard('jxgbox', {
+var board = JXG.JSXGraph.initBoard('j1', {
   boundingbox: [-10, 10, 10, -10],
   axis: true,
   showCopyright: false,
   showNavigation: false,
   pan:{enabled:false}
 });
+
 
 
 //Sliders
@@ -94,7 +101,7 @@ var graph1 = board.create('functiongraph',
 //The Dynamic Equation - Changes the minus when h<0
 
 
-board.create('text',[0.5, -3.5,
+board.create('text',[0.3, -3.5,
 function() {
 if (h.Value()>=0){
 
@@ -115,7 +122,11 @@ opacity:0.2,
 fixed:true
 });
 
-
+j1.style.width = "";
+j1.style.height = "";
+var theWidth = j1.getBoundingClientRect().width;
+var theHeight = j1.getBoundingClientRect().height;
+j1.resizeContainer(theWidth, theHeight);
 
   </script>
   

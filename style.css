@@ -7,12 +7,15 @@ body {
 	background-attachment: fixed;
 }
 
-<<<<<<< HEAD
+#j2 {
+    height:0;
+    padding-bottom: 100%
+  }
 
-
-
-=======
-p {
-	font-size: 1.2em;
-}
->>>>>>> origin/master
+  @media screen and (max-height:500px) {
+    #j2 {
+      width: calc(100vmin - 1em);
+      height: calc(100vmin - 1em);
+      padding:0
+    }
+  }
