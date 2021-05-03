@@ -8,16 +8,18 @@
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
-    
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
   </head>
   <body>
 
-  <div id="jxgbox" class="jxgbox" style="width:400px; height:300px;"></div>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
 
   <script>
  JXG.Options.text.useMathJax = true;
 
-var board = JXG.JSXGraph.initBoard('jxgbox', {
+var board = JXG.JSXGraph.initBoard('j2', {
   boundingbox: [-5.5, 5.5, 5.5, -5.5],
   axis: true,
   showCopyright: false,
@@ -51,19 +53,21 @@ var graph = board.create('functiongraph',
   strokeWidth:5
   });
 
-/*var text = board.create('text', [1, -4.5, function() {
-  return 'y =' + a.Value().toFixed(1) + 'x  +' + b.Y().toFixed(1);
-}], {
-  fontSize: 20,
-  Color: 'red',
-  fixed: true
-});*/
-
 board.create('text',[0.5, -4,
 function() {
 return '\\[y = ' + a.Value().toFixed(1) + 'x+' + b.Y().toFixed(1) + '\\]';
 }],
-{fontSize: 20});
+{fontSize: 20,
+  visible: () => (b.Y() > 0) ? true : false,
+});
+
+board.create('text',[0.5, -4,
+function() {
+return '\\[y = ' + a.Value().toFixed(1) + 'x' + b.Y().toFixed(1) + '\\]';
+}],
+{fontSize: 20,
+  visible: () => (b.Y() < 0) ? true : false,
+});
 
 
 var linev = board.create('line',[[3,-1],[3,1]],{
@@ -112,6 +116,56 @@ var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_
 opacity:0.2
 });
 
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
 
   </script>
   

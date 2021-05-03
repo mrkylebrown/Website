@@ -9,7 +9,6 @@
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <link rel="stylesheet" type="text/css" href="stylejsx.css">
-
   </head>
   <body>
 
@@ -17,111 +16,77 @@
       <div id="j2" class="jxgbox"></div>
      </div>
 
-    
   <script>
+  JXG.Options.text.useMathJax = true;
 
- JXG.Options.text.useMathJax = true;
 
 var board = JXG.JSXGraph.initBoard('j2', {
-  boundingbox: [-10, 10, 10, -10],
+  boundingbox: [-5, 5, 5, -5],
   axis: true,
   showCopyright: false,
   showNavigation: false,
   pan:{enabled:false}
 });
 
-
-
-//Sliders
-
-var a = board.create('slider', [
-  [3, -6],
-  [7, -6],
-  [-5, 1, 5]
-], {
-  snapWidth: 0.1,
-  name: 'a',
-  withLabel:true
-});
-
-var b = board.create('slider', [
-  [3, -7],
-  [7, -7],
-  [-3, 1, 3]
-], {
-  snapWidth: 0.1,
-  name: 'b',
-  withLabel:true
-});
-
-var h = board.create('slider', [
-  [3, -8],
-  [7, -8],
-  [-10, 0, 10]
+var e = board.create('slider', [
+  [2, -2],
+  [4, -2],
+  [0, 1, 7]
 ], {
   snapWidth: 1,
-  name: 'h',
-  withLabel:true
+  name: 'e',
+  label:{visible:false}
 });
 
-var k = board.create('slider', [
-  [3, -9],
-  [7, -9],
-  [-10, 0, 10]
-], {
-  snapWidth: 1,
-  name: 'k',
-  withLabel:true
-});
-
-// The Equation
-var eq = board.create('text',[-4, -1,
-function() {
-return '\\[y = af[b(x-h)]+k' + '\\]';
-}],
-{fontSize: 20,
-fixed:true
-});
-
-//The static graph
-var graph1 = board.create('functiongraph',
-  ['x^2',-10,10],{
-  StrokeColor:"green",
-  strokeWidth:2,
-  dash:2
-  });
-
-  //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
-  var graph2 = board.create('functiongraph',
-  ['a.Value() * (b.Value()*(x-h.Value()))*(b.Value()*(x-h.Value())) + k.Value()',-10,10],{
-  strokeWidth:4,
-  });
+var a = board.create('slider',[[3,-3],[4,-3],[0,1,1]],{snapWidth:1,label:{visible:false}})
 
 
-//The Dynamic Equation - Changes the minus when h<0
-
-
-board.create('text',[-4, -3.5,
-function() {
-if (h.Value()>=0){
-
-return '\\[y = ' + a.Value().toFixed(1) + '[' + b.Value().toFixed(1) + '(x-' + h.Value().toFixed(0) + ')]^2 +' + k.Value().toFixed(0) + '\\]';
-
+var graph = board.create('functiongraph', [ 
+function(t) {
+  if (a.Value()==1){
+  return JXG.Math.pow(t,e.Value());
+  } else if (a.Value()==0){
+  return -1*JXG.Math.pow(t,e.Value());
+  }
 }
-else if (h.Value()<0){
-return '\\[y = ' + a.Value().toFixed(1) + '[' + b.Value().toFixed(1) + '(x+' + Math.abs(h.Value().toFixed(0)) + ')]^2 +' + k.Value().toFixed(0) + '\\]';
-}}],
-{fontSize: 20,
-fixed:true
+],{
+  firstArrow:true,
+  lastArrow:true,
+  strokeWidth:5,
+  strokeColor:'#0000ff'
+  });
+
+board.create('text',[1.5, 0,
+function() {
+return '\\[f(x) = x^{' + e.Value() + '}\\]';
+}],
+{fontSize: 22,
+fixed:true,
+anchorY:'top',
+color:'#009100',
+visible: () => (a.Value() == 1) ? true : false,
 });
 
+board.create('text',[1.5, 0,
+function() {
+return '\\[f(x) = -x^{' + e.Value() + '}\\]';
+}],
+{fontSize: 22,
+fixed:true,
+anchorY:'top',
+color:'#009100',
+visible: () => (a.Value() == 0) ? true : false,
+});
 
-///The logo
-var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [7,7], [3,3] ], {
+var degree = board.create('text',[0,-2,"Degree"],{fixed:true,fontSize:15})
+var lead = board.create('text',[0,-3,"Leading Coefficient"],{fixed:true,fontSize:15})
+
+
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-4,3], [2,2] ], {
 opacity:0.2,
 fixed:true
 });
- 
+
 j2.style.width = "";
 j2.style.height = "";
 var theWidth = j2.getBoundingClientRect().width;

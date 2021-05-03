@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+  
+<p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+
+var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-14, 8, 14, -8],
+    axis: false,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+ 
+  var line = board2.create('segment',[[-12,-2],[-12,8]],{visible:false,fixed:true})
+  var xglider = board2.create('glider',[-12,6,line],{withLabel:false,showInfobox:false})
+
+  var p1 = board2.create('point',[-12,6],{fixed:true,showInfobox:false,withLabel:false,size:1,color:'#009100',visible:false});
+  var p2 = board2.create('point',[12,6],{fixed:true,showInfobox:false,withLabel:false,size:1,color:'#009100',visible:false});
+  var p3 = board2.create('point',[12,-6],{fixed:true,showInfobox:false,withLabel:false,size:1,color:'#009100',visible:false});
+  var p4 = board2.create('point',[-12,-6],{fixed:true,showInfobox:false,withLabel:false,size:1,color:'#009100',visible:false});
+
+  var p1a = board2.create('point',[function(){
+    return -12+(6-xglider.Y());
+  },6],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p2a = board2.create('point',[function(){
+    return 12-(6-xglider.Y());
+  },6],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p2b = board2.create('point',[12,function(){
+    return xglider.Y();
+  }],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p3a = board2.create('point',[12,function(){
+    return -1*xglider.Y();
+  }],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p3b = board2.create('point',[function(){
+    return 12-(6-xglider.Y());
+  },-6],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p4a = board2.create('point',[function(){
+    return -12+(6-xglider.Y());
+  },-6],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var p4b = board2.create('point',[-12,function(){
+    return -1*xglider.Y();
+  }],{fixed:true,showInfobox:false,withLabel:false,visible:false});
+
+  var h1 = board2.create("line",[xglider,p2b],{visible:false})
+  var h2 = board2.create("line",[p4b,p3a],{visible:false})
+  var v1 = board2.create("line",[p1a,p4a],{visible:false})
+  var v2 = board2.create("line",[p2a,p3b],{visible:false})
+
+  var i1 = board2.create('intersection', [h1, v1, 0],{visible:false});
+  var i2 = board2.create('intersection', [h1, v2, 0],{visible:false});
+  var i3 = board2.create('intersection', [h2, v2, 0],{visible:false});
+  var i4 = board2.create('intersection', [h2, v1, 0],{visible:false});
+
+var c1a = board2.create('segment',[xglider,i1],{color:'#009100'});
+var c1b = board2.create('segment',[p1a,i1],{color:'#009100'});
+var c2a = board2.create('segment',[p2a,i2],{color:'#009100'});
+var c2b = board2.create('segment',[p2b,i2],{color:'#009100'});
+var c3a = board2.create('segment',[p3a,i3],{color:'#009100'});
+var c3b = board2.create('segment',[p3b,i3],{color:'#009100'});
+var c4a = board2.create('segment',[p4a,i4],{color:'#009100'});
+var c4b = board2.create('segment',[p4b,i4],{color:'#009100'});
+
+var r1a = board2.create('segment',[xglider,p1],{color:'red',dash:1,name:'x'});
+var r1b = board2.create('segment',[p1a,p1],{color:'red',dash:1});
+var r2a = board2.create('segment',[p2a,p2],{color:'red',dash:1});
+var r2b = board2.create('segment',[p2b,p2],{color:'red',dash:1});
+var r3a = board2.create('segment',[p3a,p3],{color:'red',dash:1});
+var r3b = board2.create('segment',[p3b,p3],{color:'red',dash:1});
+var r4a = board2.create('segment',[p4a,p4],{color:'red',dash:1});
+var r4b = board2.create('segment',[p4b,p4],{color:'red',dash:1});
+
+var top = board2.create('segment',[p1a,p2a],{color:'#009100'});
+var bottom = board2.create('segment',[p4a,p3b],{color:'#009100'});
+var left = board2.create('segment',[xglider,p4b],{color:'#009100'});
+var right = board2.create('segment',[p2b,p3a],{color:'#009100'});
+
+var box = board2.create('text',[-1,0,"Box"],{fontSize:20,color:'#009100'})
+
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-1, 360, 8, -300],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+board2.addChild(board);
+var x = function(){return 6-xglider.Y()};
+var y = function(){return (6-xglider.Y())*(12-2*(6-xglider.Y()))*(24-2*(6-xglider.Y()))};
+var z = board.create('point',[x,y],{trace:true,color:'#009100',size:1,name:"x"});
+
+
+
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-4,3], [2,2] ], {
+opacity:0.2,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+j1.style.width = "";
+j1.style.height = "";
+var theWidth = j1.getBoundingClientRect().width;
+var theHeight = j1.getBoundingClientRect().height;
+j1.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+cellSize = window.innerWidth/400;
+for (el in board2.objects) {
+  if (JXG.isPoint(board2.objects[el])) {
+    board2.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
