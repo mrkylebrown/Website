@@ -9,7 +9,7 @@
   padding-bottom: 35%
 }
 
-@media screen and (max-height:500px) {
+@media screen and (max-height:200px) {
   #j2 {
     width: calc(100vmin - 1em);
     height: calc(100vmin - 1em);
