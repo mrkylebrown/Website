@@ -11,8 +11,8 @@
 
 @media screen and (max-height:500px) {
   #j2 {
-    width: calc(100vmin - 1.1em);
-    height: calc(100vmin - 1.2em);
+    width: calc(100vmin - 1em);
+    height: calc(100vmin - 1.8em);
 	padding:0
   }
 }
