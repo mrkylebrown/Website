@@ -124,7 +124,7 @@ var board = JXG.JSXGraph.initBoard('j2', {
 board2.addChild(board);
 var x = function(){return 6-xglider.Y()};
 var y = function(){return (6-xglider.Y())*(12-2*(6-xglider.Y()))*(24-2*(6-xglider.Y()))};
-var z = board.create('point',[x,y],{trace:true,color:'#009100',size:1,name:""});
+var z = board.create('point',[x,y],{trace:true,color:'#009100',size:1,name:"",showInfobox:true});
 
 
 var button1 = board.create('button',[6,320,'Clear', function(){return z.clearTrace()}]);

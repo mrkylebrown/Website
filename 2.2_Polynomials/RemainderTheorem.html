@@ -9,6 +9,7 @@
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
   </head>
   <body>
 
@@ -16,77 +17,73 @@
       <div id="j2" class="jxgbox"></div>
      </div>
 
+    
   <script>
-  JXG.Options.text.useMathJax = true;
 
+ JXG.Options.text.useMathJax = true;
 
 var board = JXG.JSXGraph.initBoard('j2', {
-  boundingbox: [-5, 5, 5, -5],
-  axis: true,
+  boundingbox: [-10, 5, 10, -5],
+  axis: false,
   showCopyright: false,
   showNavigation: false,
   pan:{enabled:false}
 });
 
-var e = board.create('slider', [
-  [2, -2],
-  [4, -2],
-  [0, 1, 7]
+
+
+//Sliders
+
+var a = board.create('slider', [
+  [-5, -4],
+  [5, -4],
+  [-5, 1, 5]
 ], {
   snapWidth: 1,
-  name: 'e',
-  label:{visible:false}
+  name: 'a',
+  withLabel:false
 });
+// Point
+var p = board.create('point',["0.5*(a.Value()-1)*(a.Value()+2)*(a.Value()+3)",0],{visible:false})
 
-var a = board.create('slider',[[3,-3],[4,-3],[0,1,1]],{snapWidth:1,label:{visible:false}})
-
-
-var graph = board.create('functiongraph', [ 
-function(t) {
-  if (a.Value()==1){
-  return JXG.Math.pow(t,e.Value());
-  } else if (a.Value()==0){
-  return -1*JXG.Math.pow(t,e.Value());
-  }
-}
-],{
-  firstArrow:true,
-  lastArrow:true,
-  strokeWidth:5,
-  strokeColor:'#0000ff'
-  });
-
-board.create('text',[1.5, 0,
+// The Static Equation
+board.create('text',[-7, 4,
 function() {
-return '\\[f(x) = x^{' + e.Value() + '}\\]';
+
+
+return '\\[f(x) = \\frac{1}{2}(x)^{3}+2(x)^{2}+\\frac{1}{2}(x)-3\\]';
+
+
 }],
-{fontSize: 22,
-fixed:true,
-anchorY:'top',
-color:'#009100',
-visible: () => (a.Value() == 1) ? true : false,
+{fontSize: 18,
+fixed:true,	
+anchorY:true
 });
 
-board.create('text',[1.5, 0,
+
+//The Dynamic Equation 
+
+
+board.create('text',[-7, 0,
 function() {
-return '\\[f(x) = -x^{' + e.Value() + '}\\]';
+
+
+return '\\[f('+ a.Value().toFixed(0) +') = \\frac{1}{2}(' + a.Value().toFixed(0) + ')^{3}+2(' + a.Value().toFixed(0) + ')^{2}+\\frac{1}{2}(' + a.Value().toFixed(0) + ')-3='+p.X()+'\\]';
+
+
 }],
-{fontSize: 22,
-fixed:true,
-anchorY:'top',
-color:'#009100',
-visible: () => (a.Value() == 0) ? true : false,
+{fontSize: 18,
+fixed:true,	
+anchorY:true
 });
 
-var degree = board.create('text',[0,-2,"Degree"],{fixed:true,fontSize:15})
-var lead = board.create('text',[0,-3,"[\\ + \\] or [\\ - \\]"],{fixed:true,fontSize:15})
 
-
-var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-4,3], [2,2] ], {
+///The logo
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [7,7], [3,3] ], {
 opacity:0.2,
 fixed:true
 });
-
+ 
 j2.style.width = "";
 j2.style.height = "";
 var theWidth = j2.getBoundingClientRect().width;

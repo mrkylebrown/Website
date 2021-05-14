@@ -58,7 +58,7 @@ function() {
 return '\\[y = ' + a.Value().toFixed(1) + 'x+' + b.Y().toFixed(1) + '\\]';
 }],
 {fontSize: 20,
-  visible: () => (b.Y() > 0) ? true : false,
+  visible: () => (b.Y() >! 0) ? true : false,
 });
 
 board.create('text',[0.5, -4,
