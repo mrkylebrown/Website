@@ -25,7 +25,7 @@
 @media screen and (max-height:500px) {
   #j1 {
     width: calc(100vmin - 1em);
-    height: calc(100vmin - 12em);
+    height: calc(100vmin - 10em);
 	padding:0
   }
 }
