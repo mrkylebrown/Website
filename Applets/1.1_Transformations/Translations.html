@@ -78,7 +78,7 @@ var k = board2.create('slider', [
 });
 
 // The Equation
-var eq = board2.create('text',[-5, 5,
+var eq = board2.create('text',[-5, 6,
 function() {
 return '\\[y = f(x-h)+k\\]';
 }],
@@ -169,7 +169,7 @@ var graph1 = board.create('functiongraph',
 //The Dynamic Equation - Changes the minus when h<0
 
 
-board2.create('text',[-5, 2,
+board2.create('text',[-5, 3,
 function() { 
   if(s.Value()==-1){
 if (h.Value()>=0 && k.Value()>=0){
@@ -201,7 +201,7 @@ visible: () => (s.Value() == -1) ? true : false,
 
 });
 
-board2.create('text',[-5, 2,
+board2.create('text',[-5, 3,
 function() {
   if(s.Value()==0){
 if (h.Value()>=0 && k.Value()>=0){
@@ -233,7 +233,7 @@ visible: () => (s.Value() == 0) ? true : false,
 
 });
 
-board2.create('text',[-5, 2,
+board2.create('text',[-5, 3,
 function() { 
   if(s.Value()==1){
 if (h.Value()>=0 && k.Value()>=0){
@@ -265,7 +265,7 @@ visible: () => (s.Value() == 1) ? true : false,
 
 });
 
-board2.create('text',[-5, 2,
+board2.create('text',[-5, 3,
 function() { 
   if(s.Value()==2){
 if (h.Value()>=0 && k.Value()>=0){
@@ -297,7 +297,7 @@ visible: () => (s.Value() == 2) ? true : false,
 
 });
 
-board2.create('text',[-5, 2,
+board2.create('text',[-5, 3,
 function() { 
   if(s.Value()==3){
 if (h.Value()>=0 && k.Value()>=0){
