@@ -15,15 +15,10 @@
     height: calc(100vmin - 1em);
 	padding:0
   }
-  #j1 {
-    width: calc(100vmin - 1em);
-    height: calc(100vmin - 1em);
-	padding:0
-  }
 }
-/*
+
 #j1 {
   height:0;
   padding-bottom: 40%
-}*/
+}
 
