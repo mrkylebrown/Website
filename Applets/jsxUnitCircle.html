@@ -1,0 +1,815 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+
+  <div id="jxgbox" class="jxgbox" style="width:600px; height:500px;"></div>
+
+  <script>
+JXG.Options.text.useMathJax = true;
+JXG.Options.point.color = 'blue';
+JXG.Options.point.size = 2;
+
+var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [-1.4, 1.6, 1.99, -1.2],
+  axis: false,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false},
+  zoom:{
+  wheel: false,
+  pinchHorizontal: false,
+  pinchVertical: false
+  },
+  keepAspectRatio:true
+
+});
+
+var xax = board.create('axis', [[0, 0], [1, 0]]);
+xax.removeAllTicks();
+var xticks = board.create('ticks', [xax, 1],{
+	drawLabels:true, 
+	label: {offset: [-12, -10]},
+	minorTicks:0
+})
+var yax = board.create('axis', [[0, 0], [0, 1]]);
+yax.removeAllTicks();
+var yticks = board.create('ticks', [yax, 1],{
+	drawLabels:true, 
+	label: {offset: [-23, -5]},
+	minorTicks:0
+  })
+
+///The Points
+var o = board.create('point',[0,0],{fixed:true,name:'',showInfobox:false})
+
+var a = board.create('point',[1,0],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var b = board.create('point',[Math.sqrt(3)/2,1/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var c = board.create('point',[Math.sqrt(2)/2,Math.sqrt(2)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var d = board.create('point',[1/2,Math.sqrt(3)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var e = board.create('point',[0,1],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var f = board.create('point',[-1/2,Math.sqrt(3)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var g = board.create('point',[-Math.sqrt(2)/2,Math.sqrt(2)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var h = board.create('point',[-Math.sqrt(3)/2,1/2],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var i = board.create('point',[-1,0],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var j = board.create('point',[-Math.sqrt(3)/2,-1/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var k = board.create('point',[-Math.sqrt(2)/2,-Math.sqrt(2)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var l = board.create('point',[-1/2,-Math.sqrt(3)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var m = board.create('point',[0,-1],{fixed:true,visible:true,name:'',showInfobox:false})
+
+var n = board.create('point',[1/2,-Math.sqrt(3)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var q = board.create('point',[Math.sqrt(2)/2,-Math.sqrt(2)/2],{fixed:true,visible:true,name:'',showInfobox:false})
+var r = board.create('point',[Math.sqrt(3)/2,-1/2],{fixed:true,visible:true,name:'',showInfobox:false})
+
+
+var circle = board.create('circle',[o,1],{strokeColor:"blue"})
+
+var glider = board.create('glider',[0,1,circle],{visible:true,snapToPoints:true,attractorDistance:2,color:"red",size:4,showInfobox:false,name:''
+})
+
+
+/// Controls for degrees and radians
+
+var aslider = board.create('slider',[[1.2,1.5],[1.4,1.5],[0,1,1]],{snapWidth:1,label:{visible:false}})
+
+var deg = board.create('text',[0.8,1.5,"Degrees"],{fixed:true,fontSize:15})
+var rad = board.create('text',[1.5,1.5,"Radians"],{fixed:true,fontSize:15})
+
+/// Angle in Degrees
+
+       var angle = board.create('angle',[a,o,glider],{radius:0.1,name:
+function() {
+  	return JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0) + '°';
+  },
+visible: () => (aslider.Value() == 0) ? true : false,
+}
+);
+
+/// Angle in Radians
+
+var angle = board.create('angle',[a,o,glider],{radius:0.1,name:
+function() {
+if(JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90) {
+  	return '\\[ \\frac{\\pi}{2} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60) {
+    return '\\[ \\frac{\\pi}{3} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45) {
+    return '\\[ \\frac{\\pi}{4} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30) {
+    return '\\[ \\frac{\\pi}{6} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0) {
+    return '\\[ 0 \\] or \\[ 2\\pi \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120) {
+    return '\\[ \\frac{2\\pi}{3} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135) {
+    return '\\[ \\frac{3\\pi}{4} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150) {
+    return '\\[ \\frac{5\\pi}{6} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180) {
+    return '\\[ \\pi \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210) {
+    return '\\[ \\frac{7\\pi}{6} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225) {
+    return '\\[ \\frac{5\\pi}{4} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240) {
+    return '\\[ \\frac{4\\pi}{3} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270) {
+    return '\\[ \\frac{3\\pi}{2} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300) {
+    return '\\[ \\frac{5\\pi}{3} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315) {
+    return '\\[ \\frac{7\\pi}{4} \\]';
+  } else if (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330) {
+    return '\\[ \\frac{11\\pi}{6} \\]';
+  } else {return 'N/A'}
+  },
+visible: () => (aslider.Value() == 1) ? true : false,
+color:"red",
+fontColor:"red"
+}
+);
+
+//checkbox
+var checkbox = board.create('checkbox', [1.3, 1.3, 'Angle Sections'],{fixed:true});
+
+    
+//Lines
+
+var line1 = board.create('segment',[j,b],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false,
+})
+
+
+var line = board.create('segment',[l,d],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[f,n],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[h,r],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[e,m],{dash:3,color:"orange",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)) ? true : false
+})
+
+var line = board.create('segment',[c,k],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[g,q],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[e,m],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"red",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)) ? true : false
+})
+
+var line = board.create('segment',[d,l],{dash:3,color:"green",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)) ? true : false
+})
+
+var line = board.create('segment',[f,n],{dash:3,color:"green",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"green",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)) ? true : false
+})
+
+var line = board.create('segment',[a,i],{dash:3,color:"purple",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)) ? true : false
+})
+
+var line = board.create('segment',[e,m],{dash:3,color:"purple",
+visible: () => (checkbox.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 || 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)) ? true : false
+})
+
+
+var line = board.create('segment',[o,glider])
+
+var im = board.create('image',["https://www.rockthediploma.com/images/RTD_FINAL_LOGO.png", [-1.2,1], [0.5,0.5] ], {
+opacity:0.2,fixed:true
+});
+
+
+/// Point labels
+var atext = board.create('text',[0,1.15,
+function(){
+return '\\[ (0,1) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.5,1.2,
+function(){
+return '\\[ ( \\frac{1}{2} , \\frac{\\sqrt3}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.75,1,
+function(){
+return '\\[ ( \\frac{\\sqrt2}{2} , \\frac{\\sqrt2}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.95,0.7,
+function(){
+return '\\[ ( \\frac{\\sqrt3}{2} , \\frac{1}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1,0,
+function(){
+return '\\[ ( 1 , 0 ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-0.85,1.2,
+function(){
+return '\\[ ( -\\frac{1}{2} , \\frac{\\sqrt3}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-1.2,1.05,
+function(){
+return '\\[ ( -\\frac{\\sqrt2}{2} , \\frac{\\sqrt2}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-1.35,0.75,
+function(){
+return '\\[ ( -\\frac{\\sqrt3}{2} , \\frac{1}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-1.3,0.2,
+function(){
+return '\\[ ( -1 , 0 ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-1.35,-0.45,
+function(){
+return '\\[ ( -\\frac{\\sqrt3}{2} , -\\frac{1}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-1.2,-0.7,
+function(){
+return '\\[ ( -\\frac{\\sqrt2}{2} , -\\frac{\\sqrt2}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[-0.8,-0.85,
+function(){
+return '\\[ ( -\\frac{1}{2} , -\\frac{\\sqrt3}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0,-1,
+function(){
+return '\\[ ( 0 , -1 ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.45,-0.85,
+function(){
+return '\\[ ( \\frac{1}{2} , -\\frac{\\sqrt3}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.7,-0.7,
+function(){
+return '\\[ ( \\frac{\\sqrt2}{2} , -\\frac{\\sqrt2}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[0.9,-0.4,
+function(){
+return '\\[ ( \\frac{\\sqrt3}{2} , -\\frac{1}{2} ) \\]';
+}
+],{
+visible: () => (JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330) ? true:false,
+fixed:true
+})
+
+
+///Check boxes
+var cos = board.create('checkbox', [1.3, 1, 'Cosθ = '],{fixed:true});
+var sin = board.create('checkbox', [1.3, 0.7, 'Sinθ = '],{fixed:true});
+var tan = board.create('checkbox', [1.3, 0.4, 'Tanθ = '],{fixed:true});
+
+
+//// Cos functions
+var atext = board.create('text',[1.7,1.1,
+function(){
+return '\\[ 1 \\]';
+}
+],{
+visible: () => (cos.Value() && 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ \\frac{\\sqrt3}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ \\frac{\\sqrt2}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ \\frac{1}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.1,
+function(){
+return '\\[ 0 \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ -\\frac{1}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ -\\frac{\\sqrt2}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.18,
+function(){
+return '\\[ -\\frac{\\sqrt3}{2} \\]';
+}
+],{
+visible: () => (cos.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210
+)
+) ? true:false,
+fixed:true,
+color:'red'
+})
+
+var atext = board.create('text',[1.7,1.1,
+function(){
+return '\\[ -1 \\]';
+}
+],{
+visible: () => (cos.Value() && 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180
+) ? true:false,
+fixed:true,
+color:'red'
+});
+
+
+var cosarrow = board.create('arrow',[o,[function() {return glider.X()},0]],{strokeColor:'red',strokeWidth:2,
+visible: ()=> (cos.Value() || tan.Value())
+});
+
+
+///Sin functions
+
+var atext = board.create('text',[1.7,0.8,
+function(){
+return '\\[ 0 \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ \\frac{1}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ \\frac{\\sqrt2}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ \\frac{\\sqrt3}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.8,
+function(){
+return '\\[ 1 \\]';
+}
+],{
+visible: () => (sin.Value() && 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.8,
+function(){
+return '\\[ -1 \\]';
+}
+],{
+visible: () => (sin.Value() && 
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ -\\frac{\\sqrt3}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ -\\frac{\\sqrt2}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var atext = board.create('text',[1.7,0.85,
+function(){
+return '\\[ -\\frac{1}{2} \\]';
+}
+],{
+visible: () => (sin.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)
+) ? true:false,
+fixed:true,
+color:'green'
+})
+
+var sinarrow = board.create('arrow',[[function(){return glider.X()},0],[function(){return glider.X()},function(){return glider.Y()}]],{strokeColor:'green',strokeWidth:2,
+visible: ()=> (sin.Value() || tan.Value())
+});
+
+
+/// Tan
+var atext = board.create('text',[1.7,0.58,
+function(){
+return '\\[ \\frac{\\sqrt3}{3}  \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==30 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==210
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ 1 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==45 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==225
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.53,
+function(){
+return '\\[ \\sqrt3 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==60 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==240
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.62,0.43,
+function(){
+return 'Undefined';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==90 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==270
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.53,
+function(){
+return '\\[ -\\sqrt3 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==120 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==300
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ -1 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==135 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==315
+)
+) ? true:false,
+fixed:true
+})
+
+/// Tan
+var atext = board.create('text',[1.7,0.58,
+function(){
+return '\\[ -\\frac{\\sqrt3}{3}  \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==150 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==330
+)
+) ? true:false,
+fixed:true
+})
+
+var atext = board.create('text',[1.7,0.5,
+function(){
+return '\\[ 0 \\]';
+}
+],{
+visible: () => (tan.Value() && (
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==0 ||
+JXG.Math.Geometry.trueAngle(a, o, glider).toFixed(0)==180
+)
+) ? true:false,
+fixed:true
+})
+
+  </script>
+  
+  </body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+  
+<p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+    
+  <script>
+
+ JXG.Options.text.useMathJax = true;
+
+ var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-6, 6, 6, -6],
+    axis: false,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-6, 6, 6, -6],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+
+
+//Sliders
+
+var a = board2.create('slider', [
+  [-5.8, -4],
+  [-4, -4],
+  [0, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'a',
+  label:{visible:false}
+});
+
+var b = board2.create('slider', [
+  [-3, -4],
+  [-1, -4],
+  [-4, -1, 4]
+], {
+  snapWidth: 1,
+  name: 'b',
+  label:{visible:false},
+  color:'orange'
+});
+
+var c = board2.create('slider', [
+  [0, -4],
+  [2, -4],
+  [-4, 1, 4]
+], {
+  snapWidth: 1,
+  name: 'c',
+  label:{visible:false},
+  color:'green'
+});
+
+var d = board2.create('slider', [
+  [3, -4],
+  [5, -4],
+  [-4, 3, 4]
+], {
+  snapWidth: 1,
+  name: 'd',
+  label:{visible:false},
+  color:'purple'
+});
+
+var e1 = board2.create('slider', [
+  [-4, 3],
+  [-2, 3],
+  [1, 1, 5]
+], {
+  snapWidth: 1,
+  name: 'e1',
+  label:{visible:false},
+  color:'orange'
+});
+
+var e2 = board2.create('slider', [
+  [-0, 3],
+  [2, 3],
+  [1, 1, 5]
+], {
+  snapWidth: 1,
+  name: 'e1',
+  label:{visible:false},
+  color:'green'
+});
+
+var e3 = board2.create('slider', [
+  [4, 3],
+  [6, 3],
+  [1, 2, 5]
+], {
+  snapWidth: 1,
+  name: 'e1',
+  label:{visible:false},
+  color:'purple'
+});
+/// points on x axis
+
+var bp = board.create('point',[function(){return b.Value()},0],{color:'orange',name:''})
+var cp = board.create('point',[function(){return c.Value()},0],{color:'green',name:''})
+var dp = board.create('point',[function(){return d.Value()},0],{color:'purple',name:''})
+
+  //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
+  var graph2 = board.create('functiongraph',
+  [function(x) {
+return a.Value()*JXG.Math.pow(x-b.Value(),e1.Value())*JXG.Math.pow(x-c.Value(),e2.Value())*JXG.Math.pow(x-d.Value(),e3.Value());
+  },-10,10],{
+  strokeWidth:3,
+  });
+
+  // The Dynamic Text
+
+  board2.create('text',[-5.8, -0.5,
+function() {
+  if(b.Value()>=0)
+return '\\[y = ' + a.Value().toFixed(1) + '(x-' + b.Value().toFixed(0) + ')^{'+ e1.Value()+'}'+'\\]';
+else if(b.Value()<0)
+return '\\[y = ' + a.Value().toFixed(1) + '(x+' + Math.abs(b.Value().toFixed(0)) + ')^{'+ e1.Value()+'}'+'\\]';
+}],
+{fontSize: 20,
+fixed:true
+});
+
+board2.create('text',[-1, -0.5,
+function() {
+  if(c.Value()>=0)
+return '\\[' + '(x-' + c.Value().toFixed(0) + ')^{'+ e2.Value()+'}'+'\\]';
+else if(c.Value()<0)
+return '\\[' + '(x+' + Math.abs(c.Value().toFixed(0)) + ')^{'+ e2.Value()+'}'+'\\]';
+}],
+{fontSize: 20,
+fixed:true
+});
+
+board2.create('text',[1.7, -0.5,
+function() {
+  if(d.Value()>=0)
+return '\\[' + '(x-' + d.Value().toFixed(0) + ')^{'+ e3.Value()+'}'+'\\]';
+else if(d.Value()<0)
+return '\\[' + '(x+' + Math.abs(d.Value().toFixed(0)) + ')^{'+ e3.Value()+'}'+'\\]';
+}],
+{fontSize: 20,
+fixed:true
+});
+
+  board2.addChild(board);
+
+
+/// The Logo
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-5.5,4], [2,1.5] ], {
+opacity:1,
+fixed:true
+});
+ 
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+j1.style.width = "";
+j1.style.height = "";
+var theWidth = j1.getBoundingClientRect().width;
+var theHeight = j1.getBoundingClientRect().height;
+j1.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+  
+  </body>
+</html>

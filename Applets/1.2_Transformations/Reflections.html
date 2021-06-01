@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+  
+<p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+    
+  <script>
+
+ JXG.Options.text.useMathJax = true;
+
+ var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-6, 6, 6, -6],
+    axis: false,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-6, 6, 6, -6],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+
+
+
+var aslider = board2.create('slider',[[-1,4.6],[1,4.6],[-1,0,1]],{snapWidth:1,label:{visible:false}})
+
+
+///static text
+/// f(-x)
+
+var fnegx = board2.create('text',[-5.5,5.5,"Transformed Function"],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == -1 || aslider.Value() == 1) ? true : false,
+})
+
+var fnegx = board2.create('text',[-5,4.5,function(){return '\\[y=f(-x)\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"green",
+visible: () => (aslider.Value() == -1) ? true : false,
+})
+
+var fequx = board2.create('text',[-6,1.7,function(){return '\\[y = (-x)^2 - 3 (-x) - 2\\]' }],{
+  fixed:true,fontSize:14,anchorY:'top',color:"green", 
+   visible: () => (aslider.Value() == -1) ? true : false,
+})
+
+var fequx = board2.create('text',[-5.5,-1.3,function(){return '\\[y = x^2 + 3x - 2\\]' }],{
+  fixed:true,fontSize:14,anchorY:'top',color:"green", 
+   visible: () => (aslider.Value() == -1) ? true : false,
+})
+
+var fnegx = board2.create('text',[2,5.5,"Mapping Rule"],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == -1 || aslider.Value() == 1) ? true : false,
+})
+
+var fnegx = board2.create('text',[1.7,4.5,function(){return '\\[(x,y)\\rightarrow\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == -1 || aslider.Value() == 1) ? true : false,
+})
+
+var fnegx = board2.create('text',[3.2,4.5,function(){return '\\[(-x,y)\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"green",
+visible: () => (aslider.Value() == -1) ? true : false,
+})
+
+
+
+///f(x)
+
+var textfx = board2.create('text',[-0.8,3.5,function(){return '\\[y=f(x)\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == 0) ? true : false,
+})
+
+var fequ = board2.create('text',[-1.5,1,function(){return '\\[y = x^2 - 3 x - 2 \\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == 0) ? true : false,
+})
+
+///-f(x)
+var negfx = board2.create('text',[-5,4.5,function(){return '\\[y=-f(x)\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => (aslider.Value() == 1) ? true : false,
+})
+var fequy = board2.create('text',[-5.7,1.7,function(){return '\\[y = -[x^2 - 3 x - 2]\\]' }],{
+  fixed:true,fontSize:14,anchorY:'top',color:"red", 
+   visible: () => (aslider.Value() == 1) ? true : false,
+})
+var fequy = board2.create('text',[-5.5,-1.3,function(){return '\\[y = -x^2 + 3 x - 2\\]' }],{
+  fixed:true,fontSize:14,anchorY:'top',color:"red", 
+   visible: () => (aslider.Value() == 1) ? true : false,
+})
+
+var fnegx = board2.create('text',[3.2,4.5,function(){return '\\[(x,-y)\\]' }],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => (aslider.Value() == 1) ? true : false,
+})
+
+/// Graphs of x^2
+  var f = board.create('functiongraph',
+  ["x^2 - 3*x-2",-10,10],{
+  strokeWidth:3,
+  });
+
+  var fx = board.create('functiongraph',
+  ["x^2 + 3*x-2",-10,10],{
+  strokeWidth:3,
+  dash:2,
+  strokeColor:"green",
+  visible: () => (aslider.Value() == -1) ? true : false,
+  });
+
+  var fy = board.create('functiongraph',
+  ["-x^2 + 3*x+2",-10,10],{
+  strokeWidth:3,
+  dash:2,
+  strokeColor:"red",
+  visible: () => (aslider.Value() == 1) ? true : false,
+
+  });
+
+ 
+
+ /// Glider on f
+ var g = board.create("glider",[3,-2,f],{showInfobox:false, 
+  name: function(){return "\\[ ("+this.X().toFixed(1)+","+(this.X().toFixed(1)*this.X().toFixed(1)-3*this.X().toFixed(1)-2).toFixed(1) +")\\]"}})
+
+/// point on fx
+var fxpoint = board.create("point",[function(){return -1*g.X()},function(){return g.Y()}],{
+  name: function(){return "\\[ ("+this.X().toFixed(1)+","+(g.X().toFixed(1)*g.X().toFixed(1)-3*g.X().toFixed(1)-2).toFixed(1) +")\\]"},
+  color: "green",
+  visible: () => (aslider.Value() == -1) ? true : false,
+  showInfobox:false
+})
+
+/// point on fy
+var fxpoint = board.create("point",[function(){return g.X()},function(){return -1*g.Y()}],{
+  name: function(){return "\\[ ("+this.X().toFixed(1)+","+(-1*(g.X().toFixed(1)*g.X().toFixed(1)-3*g.X().toFixed(1)-2).toFixed(1)).toFixed(1) +")\\]"},
+  color: "red",
+  visible: () => (aslider.Value() == 1) ? true : false,
+  showInfobox:false
+})
+
+
+
+/// Dynamic Points Text
+
+
+var fpx1 = board2.create('text',[0.5,1.7,
+function(){return "\\[("+ g.X().toFixed(1)+","+(g.X().toFixed(1)*g.X().toFixed(1)-3*g.X().toFixed(1)-2).toFixed(1) +")\\rightarrow\\]" }],{fixed:true,fontSize:14,anchorY:'top',color:"blue",
+visible: () => (aslider.Value() == -1 || aslider.Value() == 1) ? true : false,
+})
+
+var fpx = board2.create('text',[3,1.7,
+function(){return "\\[("+ (-1*g.X()).toFixed(1)+","+(g.X().toFixed(1)*g.X().toFixed(1)-3*g.X().toFixed(1)-2).toFixed(1) +")\\]" }],{fixed:true,fontSize:14,anchorY:'top',color:"green",
+visible: () => (aslider.Value() == -1) ? true : false,
+})
+
+var fpy = board2.create('text',[3,1.7,
+function(){return "\\[("+ g.X().toFixed(1)+","+(-1*(g.X().toFixed(1)*g.X().toFixed(1)-3*g.X().toFixed(1)-2).toFixed(1)).toFixed(1) +")\\]" }],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => (aslider.Value() == 1) ? true : false,
+})
+
+var d = board.create('text',[3,-2.5,"Drag Me!"],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => (g.X() > 3 || g.X() < 2.9) ? false : true,
+})
+
+var e = board2.create('text',[1.2,5,"Drag Me!"],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => (aslider.Value()==0) ? true : false,
+})
+
+
+
+  board2.addChild(board);
+  board.addChild(board2);
+
+
+/// The Logo
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-5.5,4], [2,1.2] ], {
+opacity:1,
+fixed:true
+});
+ 
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+j1.style.width = "";
+j1.style.height = "";
+var theWidth = j1.getBoundingClientRect().width;
+var theHeight = j1.getBoundingClientRect().height;
+j1.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+  
+  </body>
+</html>

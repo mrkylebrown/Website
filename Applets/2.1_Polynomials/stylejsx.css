@@ -1,0 +1,24 @@
+
+.wrap600 {
+  max-width: 400px;
+  margin: 0 auto
+}
+
+#j2 {
+  height:0;
+  padding-bottom: 80%
+}
+
+@media screen and (max-height:500px) {
+  #j2 {
+    width: calc(100vmin - 1em);
+    height: calc(100vmin - 1em);
+	padding:0
+  }
+}
+
+#j1 {
+  height:0;
+  padding-bottom: 60%
+}
+

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+
+    
+  <script>
+
+ JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('j1', {
+  boundingbox: [-10, 5, 10, -5],
+  axis: false,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+
+
+//Sliders
+
+var a = board.create('slider', [
+  [-5, -4],
+  [5, -4],
+  [-5, 1, 5]
+], {
+  snapWidth: 1,
+  name: 'a',
+  withLabel:false
+});
+// Point
+var p = board.create('point',["0.5*(a.Value()-1)*(a.Value()+2)*(a.Value()+3)",0],{visible:false})
+
+// The Static Equation
+board.create('text',[-7, 4,
+function() {
+
+
+return '\\[f(x) = \\frac{1}{2}x^{3}+2x^{2}+\\frac{1}{2}x-3\\]';
+
+
+}],
+{fontSize: 18,
+fixed:true,	
+anchorY:true
+});
+
+
+//The Dynamic Equation 
+
+
+board.create('text',[-7, 0,
+function() {
+
+
+return '\\[f('+ a.Value().toFixed(0) +') = \\frac{1}{2}(' + a.Value().toFixed(0) + ')^{3}+2(' + a.Value().toFixed(0) + ')^{2}+\\frac{1}{2}(' + a.Value().toFixed(0) + ')-3='+p.X()+'\\]';
+
+
+}],
+{fontSize: 18,
+fixed:true,	
+anchorY:true
+});
+
+
+///The logo
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [6,2], [3.4,2] ], {
+opacity:1,
+fixed:true
+});
+ 
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+  
+  </body>
+</html>

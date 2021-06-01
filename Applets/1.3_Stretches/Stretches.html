@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph template</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+  
+<p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+    
+  <script>
+
+ JXG.Options.text.useMathJax = true;
+
+ var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-6, 6, 6, -6],
+    axis: false,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-10, 10, 10, -10],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+//Sliders
+
+var s = board2.create('slider', [
+  [-5, -3.5],
+  [-1, -3.5],
+  [-1, -1, 3]
+], {
+  snapWidth: 1,
+  label:{visible:false},
+  color:"blue"
+});
+
+var a = board2.create('slider', [
+  [1, 2],
+  [4, 2],
+  [-5, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'a',
+  withLabel:true,
+  color:"green"
+});
+
+var b = board2.create('slider', [
+  [1, -1],
+  [4, -1],
+  [-5, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'b',
+  withLabel:true,
+  color:"red"
+});
+
+// The Equation
+var eq = board2.create('text',[-5, 5,
+function() {
+return '\\[y = af(bx)\\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:"top",
+});
+
+//The static graph
+var graph3 = board.create('functiongraph',
+  ['x^3',-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2,
+  visible: () => (s.Value() == 1) ? true : false,
+  });
+
+var graph1 = board.create('functiongraph',
+  ['sqrt(x)',-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2,
+  visible: () => (s.Value() == -1) ? true : false,
+  });
+
+  var graph1 = board.create('functiongraph',
+  [function(x){return JXG.Math.pow(x,2)},-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2,
+  visible: () => (s.Value() == 0) ? true : false,
+  });
+
+  var graph1 = board.create('functiongraph',
+  [function(x){return Math.abs(x)},-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2,
+  visible: () => (s.Value() == 2) ? true : false,
+  });
+
+  var graph1 = board.create('functiongraph',
+  [function(x){return 1/x},-10,10],{
+  StrokeColor:"green",
+  strokeWidth:2,
+  dash:2,
+  visible: () => (s.Value() == 3) ? true : false,
+  });
+
+
+
+ // var t = board.create('text',[5,5,function(){return "\\[y=\\sqrt{x}\\]"}],{color:"green",fontSize:16,anchorY:'top'})
+
+  //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
+ 
+  var graph1 = board.create('functiongraph',
+  [function(x){
+    if (s.Value()==-1){return a.Value()*JXG.Math.pow((b.Value()*x),0.5)}},-10,10],{
+  StrokeColor:"blue",
+  strokeWidth:2,
+  });
+
+  var graph2 = board.create('functiongraph',
+  [function(x){
+    if (s.Value()==0){return a.Value()*JXG.Math.pow(b.Value()*x,2)} },-10,10],{
+  StrokeColor:"blue",
+  strokeWidth:2,
+  });
+
+  var graph3 = board.create('functiongraph',
+  [function(x){if (s.Value()==1){return a.Value()*JXG.Math.pow((b.Value()*x),3)}},-10,10],{
+  StrokeColor:"blue",
+  strokeWidth:2,
+  });
+
+  var graph4 = board.create('functiongraph',
+  [function(x){if (s.Value()==2){return a.Value()*Math.abs(b.Value()*x)}},-10,10],{
+  StrokeColor:"blue",
+  strokeWidth:2,
+  });
+
+  var graph5 = board.create('functiongraph',
+  [function(x){if (s.Value()==3){return a.Value()*1/(b.Value()*x)}},-10,10],{
+  StrokeColor:"blue",
+  strokeWidth:2,
+  });
+
+
+//The Dynamic Equation - Changes the minus when h<0
+
+
+board2.create('text',[-5, 2,
+function() {
+  if (s.Value()==-1)
+  {return "\\[y="+a.Value().toFixed(1)+"\\sqrt{"+b.Value().toFixed(1)+"x}\\]" }
+else {return "hidden text"}
+}],
+{fontSize:20,
+fixed:true,
+anchorY:"top",
+visible: () => (s.Value() == -1) ? true : false,
+
+});
+
+board2.create('text',[-5, 2,
+function() {
+  if (s.Value()==0)
+  {return "\\[y="+a.Value().toFixed(1)+"("+b.Value().toFixed(1)+"x)^2\\]" }
+else {return "hidden text"}
+}],
+{fontSize:20,
+fixed:true,
+anchorY:"top",
+visible: () => (s.Value() == 0) ? true : false,
+
+});
+
+board2.create('text',[-5, 2,
+function() {
+  if (s.Value()==1)
+  {return "\\[y="+a.Value().toFixed(1)+"("+b.Value().toFixed(1)+"x)^3\\]" }
+else {return "hidden text"}
+}],
+{fontSize:20,
+fixed:true,
+anchorY:"top",
+visible: () => (s.Value() == 1) ? true : false,
+
+});
+
+board2.create('text',[-5, 2,
+function() {
+  if (s.Value()==2)
+  {return "\\[y="+a.Value().toFixed(1)+"|"+b.Value().toFixed(1)+"x|\\]" }
+else {return "hidden text"}
+}],
+{fontSize:20,
+fixed:true,
+anchorY:"top",
+visible: () => (s.Value() == 2) ? true : false,
+
+});
+
+board2.create('text',[-5, 2,
+function() {
+  if (s.Value()==3)
+  {return "\\[y="+a.Value().toFixed(1)+"(\\frac{1}{"+b.Value().toFixed(1)+"x})\\]" }
+else {return "hidden text"}
+}],
+{fontSize:20,
+fixed:true,
+anchorY:"top",
+visible: () => (s.Value() == 3) ? true : false,
+
+});
+
+
+
+
+var e = board2.create('text',[2.7,5,"Drag Me!"],{fixed:true,fontSize:14,anchorY:'top',color:"red",
+visible: () => ( a.Value()==0 && b.Value()==0) ? true : false,
+})
+
+var g = board2.create('text',[-4.2,-4,"Function Type"],
+{fixed:true,fontSize:16,anchorY:'top',color:"red",
+})
+
+/// The Point
+
+var p = board.create('point',[function(){return 4*1/b.Value()},function(){return 2*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == -1) ? true : false,
+})
+
+
+var p1 = board.create('point',[function(){return 0},function(){return 0}],{name:function(){return "\\[("+this.X().toFixed(0)+","+this.Y().toFixed(0)+")\\]"},visible: () => (s.Value() == 3) ? false : true,
+})
+
+var p2 = board.create('point',[function(){return 2*1/b.Value()},function(){return 4*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == 0) ? true : false,
+})
+
+var p4 = board.create('point',[function(){return -2*1/b.Value()},function(){return -8*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == 1) ? true : false,
+})
+
+var p = board.create('point',[function(){return 3*1/b.Value()},function(){return 3*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == 2) ? true : false,
+})
+
+var p = board.create('point',[function(){return 1*1/b.Value()},function(){return 1*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == 3) ? true : false,
+})
+
+var p = board.create('point',[function(){return -1*1/b.Value()},function(){return -1*a.Value()}],{name:function(){return "\\[("+this.X().toFixed(1)+","+this.Y().toFixed(1)+")\\]"},  visible: () => (s.Value() == 3) ? true : false,
+})
+
+
+var button1 = board2.create('button',[2.5,-4,'Reset', function(){return a.setValue(1),b.setValue(1)}]);
+
+
+  board2.addChild(board);
+ 
+
+
+/// The Logo
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-9,7], [4,2] ], {
+opacity:1,
+fixed:true
+});
+ 
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+j1.style.width = "";
+j1.style.height = "";
+var theWidth = j1.getBoundingClientRect().width;
+var theHeight = j1.getBoundingClientRect().height;
+j1.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+cellSize = window.innerWidth/400;
+for (el in board2.objects) {
+  if (JXG.isText(board2.objects[el])) {
+    board2.objects[el].setAttribute({ fontSize: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+  
+  </body>
+</html>
