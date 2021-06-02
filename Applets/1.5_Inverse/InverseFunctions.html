@@ -27,7 +27,8 @@ var board = JXG.JSXGraph.initBoard('j2', {
   pan:{enabled:false},
   showInfobox:false
 });
-var check = board.create('checkbox', [-9, 8, "Show Inverse Relation"])
+var check = board.create('checkbox', [-9, 8,""],{fixed:true})
+var text = board.create('text',[-7.5,9,function(){return "Show \\[x=f(y)\\]"}],{anchorY:'top',fixed:true,fontSize:18})
 var line = board.create('line',[[0,0],[1,1]],{color:'green',dash:3,visible: () => (check.Value()) ? true : false,
 })
 var text = board.create('text',[4,4,function(){return "\\[y=x\\]"}],{color:"green",visible: () => (check.Value()) ? true : false,
