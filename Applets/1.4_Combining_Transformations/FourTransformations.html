@@ -390,7 +390,8 @@ var button1 = board2.create('button',[2.5,-4.7,'Reset', function(){return a.setV
 
 
   board2.addChild(board);
- 
+  brds.push(board);
+  brds.push(board2);
 
 
 /// The Logo
@@ -398,7 +399,7 @@ var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-
 opacity:1,
 fixed:true
 });
- 
+
 j2.style.width = "";
 j2.style.height = "";
 var theWidth = j2.getBoundingClientRect().width;
@@ -448,20 +449,14 @@ function resizeThrottler() {
 		}
 	}
 }
-
-cellSize = window.innerWidth/400;
-for (el in board.objects) {
-  if (JXG.isPoint(board.objects[el])) {
-    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
-  }
-}
-
-cellSize = window.innerWidth/400;
+cellSize = window.innerWidth/1000;
 for (el in board2.objects) {
   if (JXG.isText(board2.objects[el])) {
     board2.objects[el].setAttribute({ fontSize: cellSize.toFixed(0) });
   }
 }
+
+
 
   </script>
   
