@@ -73,7 +73,7 @@ return '\\[y ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^x +'+k.Val
 {fontSize: 20,
 fixed:true,
 anchorY:'top'
-});
+}); 
 
 var p = board.create('point',[0,function(){return a.Value()+k.Value()}],{name:function(){return '\\[(0,'+this.Y().toFixed(1)+')\\]'}});
 
@@ -137,6 +137,6 @@ for (el in board.objects) {
 }
 
   </script>
-  
+
   </body>
 </html>
