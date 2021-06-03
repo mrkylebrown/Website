@@ -66,7 +66,16 @@ var graph = board.create('functiongraph',
 
   var line = board.create('line',[[-5,function(){return k.Value()}],[5,function(){return k.Value()}]],{color:'green',dash:2})
 
-board.create('text',[-4, 13,
+  board.create('text',[-4, 13,
+  function() {
+  return '\\[y =a(b)^x +k\\]';
+  }],
+  {fontSize: 20,
+  fixed:true,
+  anchorY:'top'
+  });
+
+board.create('text',[-4, 10,
 function() {
 return '\\[y ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^x +'+k.Value()+'\\]';
 }],
@@ -77,10 +86,10 @@ anchorY:'top'
 
 var p = board.create('point',[0,function(){return a.Value()+k.Value()}],{name:function(){return '\\[(0,'+this.Y().toFixed(1)+')\\]'}});
 
-var button1 = board.create('button',[-3,9,'Reset', function(){return a.setValue(1),b.setValue(2),k.setValue(0)}],{fixed:true});
+var button1 = board.create('button',[-4,5,'Reset', function(){return a.setValue(1),b.setValue(2),k.setValue(0)}],{fixed:true});
 
 
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [2,15], [3,3] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [2,16], [2,2] ], {
 opacity:1,
 fixed:true
 });
@@ -137,6 +146,6 @@ for (el in board.objects) {
 }
 
   </script>
-  
+
   </body>
 </html>
