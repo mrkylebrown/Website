@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>JSXGraph template</title>
+    <title>The Logarithmic Function</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
@@ -20,67 +20,125 @@
   JXG.Options.text.useMathJax = true;
 
 var board = JXG.JSXGraph.initBoard('j2', {
-  boundingbox: [-5, 20, 5, -7],
+  boundingbox: [-10, 10, 10, -10],
   axis: true,
   showCopyright: false,
   showNavigation: false,
   pan:{enabled:false}
 });
-
+/*
 var a = board.create('slider', [
-  [-4, 18],
-  [-2, 18],
-  [-5, 1, 15]
+  [-9, 9],
+  [-5, 9],
+  [-7, 1, 7]
 ], {
-  snapWidth: 0.2,
+  snapWidth: 0.1,
   name: 'a',
-  color:'red'
+  color:'blue'
 });
-
+*/
 var b = board.create('slider', [
-  [-4, 16],
-  [-2, 16],
+  [-9, 7],
+  [-5, 7],
   [0.01, 2, 4]
 ], {
   snapWidth: 0.01,
   name: 'b',
-  color:'green'
+  color:'blue'
 });
 
-var k = board.create('slider', [
-  [-4, 14],
-  [-2, 14],
-  [-5, 0, 15]
-], {
-  snapWidth: 1,
-  name: 'k',
-  color:'purple'
-});
+
 
 var graph = board.create('functiongraph',
-  [function(x){return a.Value()*JXG.Math.pow(b.Value(),x)+k.Value()},-4.7,4.5],{
-  firstArrow:true,
-  lastArrow:true,
+  [function(x){return JXG.Math.pow(b.Value(),x)}],{
   strokeWidth:3,
   });
 
-  var line = board.create('line',[[-5,function(){return k.Value()}],[5,function(){return k.Value()}]],{color:'green',dash:2})
+  var graph2 = board.create('functiongraph',
+    [function(x){return JXG.Math.log(x, b.Value())}],{
+    strokeWidth:3,
+    strokeColor:'green'
+    });
 
-board.create('text',[-4, 13,
+
+  board.create('text',[-9, 7,
+  function() {
+  return '\\[y = b^x \\]';
+  }],
+  {fontSize: 20,
+  fixed:true,
+  anchorY:'top',
+  color:'blue'
+  });
+
+board.create('text',[-9, 5,
 function() {
-return '\\[y ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^x +'+k.Value()+'\\]';
+return '\\[y = (' + b.Value().toFixed(2) + ')^x\\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'blue'
+});
+
+board.create('text',[3, 0,
+function() {
+return '\\[x = b^y \\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green'
+});
+
+board.create('text',[3, -2,
+function() {
+return '\\[x =(' + b.Value().toFixed(2) + ')^y\\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green'
+});
+
+board.create('text',[4, -3.8,
+function() {
+return '\\[or\\]';
 }],
 {fontSize: 20,
 fixed:true,
 anchorY:'top'
 });
 
-var p = board.create('point',[0,function(){return a.Value()+k.Value()}],{name:function(){return '\\[(0,'+this.Y().toFixed(1)+')\\]'}});
+board.create('text',[3, -5,
+function() {
+return '\\[y = \\log_{b}x \\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green'
+});
 
-var button1 = board.create('button',[-3,9,'Reset', function(){return a.setValue(1),b.setValue(2),k.setValue(0)}],{fixed:true});
+board.create('text',[3, -7,
+function() {
+return '\\[y = \\log_{'+b.Value().toFixed(2)+'}x \\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green'
+});
+
+var line = board.create('line',[[0,0],[1,1]],{color: 'grey',dash:2})
+var text = board.create('text',[7,6.5,function(){return "\\[y=x\\]"}],{color:'grey',rotate:45})
+
+var p = board.create('point',[2,function(){return b.Value()*b.Value()}],{name:function(){return '\\[(2,'+this.Y().toFixed(1)+')\\]'}});
+var rp = board.create('reflection', [p, line],{name:function(){return "\\[("+(b.Value()*b.Value()).toFixed(1)+",2)\\]"}});
+var button1 = board.create('button',[-9,1.5,'Reset', function(){return b.setValue(2)}],{fixed:true});
 
 
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [2,15], [3,3] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [2,16], [2,2] ], {
 opacity:1,
 fixed:true
 });
