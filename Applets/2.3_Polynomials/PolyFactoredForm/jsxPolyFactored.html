@@ -138,7 +138,7 @@ return a.Value()*JXG.Math.pow(x-b.Value(),e1.Value())*JXG.Math.pow(x-c.Value(),e
 
   // The Dynamic Text
 
-  board2.create('text',[-5.8, -0.5,
+  board2.create('text',[-4.8, -2.5,
 function() {
   if(b.Value()>=0)
 return '\\[y = ' + a.Value().toFixed(1) + '(x-' + b.Value().toFixed(0) + ')^{'+ e1.Value()+'}'+'\\]';
@@ -146,10 +146,11 @@ else if(b.Value()<0)
 return '\\[y = ' + a.Value().toFixed(1) + '(x+' + Math.abs(b.Value().toFixed(0)) + ')^{'+ e1.Value()+'}'+'\\]';
 }],
 {fontSize: 20,
-fixed:true
+fixed:true,
+anchorY:'bottom'
 });
 
-board2.create('text',[-1, -0.5,
+board2.create('text',[-1, -2.5,
 function() {
   if(c.Value()>=0)
 return '\\[' + '(x-' + c.Value().toFixed(0) + ')^{'+ e2.Value()+'}'+'\\]';
@@ -157,10 +158,11 @@ else if(c.Value()<0)
 return '\\[' + '(x+' + Math.abs(c.Value().toFixed(0)) + ')^{'+ e2.Value()+'}'+'\\]';
 }],
 {fontSize: 20,
-fixed:true
+fixed:true,
+anchorY:'bottom'
 });
 
-board2.create('text',[1.7, -0.5,
+board2.create('text',[1, -2.5,
 function() {
   if(d.Value()>=0)
 return '\\[' + '(x-' + d.Value().toFixed(0) + ')^{'+ e3.Value()+'}'+'\\]';
@@ -168,7 +170,8 @@ else if(d.Value()<0)
 return '\\[' + '(x+' + Math.abs(d.Value().toFixed(0)) + ')^{'+ e3.Value()+'}'+'\\]';
 }],
 {fontSize: 20,
-fixed:true
+fixed:true,
+anchorY:'bottom'
 });
 
   board2.addChild(board);
