@@ -15,7 +15,7 @@
     <div class="wrap600">
       <div id="j1" class="jxgbox"></div>
      </div>
-  
+
 <p></p>
     <div class="wrap600">
       <div id="j2" class="jxgbox"></div>
@@ -23,7 +23,7 @@
 
   <script>
     JXG.Options.text.useMathJax = true;
-    
+
 
 var board2 = JXG.JSXGraph.initBoard('j1', {
     boundingbox: [-14, 9, 14, -8],
@@ -33,7 +33,7 @@ var board2 = JXG.JSXGraph.initBoard('j1', {
     pan:{enabled:false}
   });
 
- 
+
   var line = board2.create('segment',[[-12,-2],[-12,8]],{visible:false,fixed:true})
   var xglider = board2.create('glider',[-12,6,line],{withLabel:false,showInfobox:false})
 
@@ -132,7 +132,7 @@ var xaxis = board.create('text',[7.5, -35 ,function(){return '\\[ x \\]'}],{font
 var yaxis = board.create('text',[0.1, 300 ,function(){return '\\[ Volume \\]'}],{fontSize:16,fixed:true});
 
 
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [5.5,-250], [2,100] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [5.5,-250], [2,100] ], {
 opacity:1,
 fixed:true
 });
