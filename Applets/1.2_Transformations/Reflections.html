@@ -16,13 +16,13 @@
     <div class="wrap600">
       <div id="j1" class="jxgbox"></div>
      </div>
-  
+
 <p></p>
     <div class="wrap600">
       <div id="j2" class="jxgbox"></div>
      </div>
 
-    
+
   <script>
 
  JXG.Options.text.useMathJax = true;
@@ -61,12 +61,12 @@ visible: () => (aslider.Value() == -1) ? true : false,
 })
 
 var fequx = board2.create('text',[-6,1.7,function(){return '\\[y = (-x)^2 - 3 (-x) - 2\\]' }],{
-  fixed:true,fontSize:14,anchorY:'top',color:"green", 
+  fixed:true,fontSize:14,anchorY:'top',color:"green",
    visible: () => (aslider.Value() == -1) ? true : false,
 })
 
 var fequx = board2.create('text',[-5.5,-1.3,function(){return '\\[y = x^2 + 3x - 2\\]' }],{
-  fixed:true,fontSize:14,anchorY:'top',color:"green", 
+  fixed:true,fontSize:14,anchorY:'top',color:"green",
    visible: () => (aslider.Value() == -1) ? true : false,
 })
 
@@ -99,11 +99,11 @@ var negfx = board2.create('text',[-5,4.5,function(){return '\\[y=-f(x)\\]' }],{f
 visible: () => (aslider.Value() == 1) ? true : false,
 })
 var fequy = board2.create('text',[-5.7,1.7,function(){return '\\[y = -[x^2 - 3 x - 2]\\]' }],{
-  fixed:true,fontSize:14,anchorY:'top',color:"red", 
+  fixed:true,fontSize:14,anchorY:'top',color:"red",
    visible: () => (aslider.Value() == 1) ? true : false,
 })
 var fequy = board2.create('text',[-5.5,-1.3,function(){return '\\[y = -x^2 + 3 x - 2\\]' }],{
-  fixed:true,fontSize:14,anchorY:'top',color:"red", 
+  fixed:true,fontSize:14,anchorY:'top',color:"red",
    visible: () => (aslider.Value() == 1) ? true : false,
 })
 
@@ -134,10 +134,10 @@ visible: () => (aslider.Value() == 1) ? true : false,
 
   });
 
- 
+
 
  /// Glider on f
- var g = board.create("glider",[3,-2,f],{showInfobox:false, 
+ var g = board.create("glider",[3,-2,f],{showInfobox:false,
   name: function(){return "\\[ ("+this.X().toFixed(1)+","+(this.X().toFixed(1)*this.X().toFixed(1)-3*this.X().toFixed(1)-2).toFixed(1) +")\\]"}})
 
 /// point on fx
@@ -191,11 +191,11 @@ visible: () => (aslider.Value()==0) ? true : false,
 
 
 /// The Logo
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-5.5,4], [2,1.2] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo", [-5.5,4], [2,1.2] ], {
 opacity:1,
 fixed:true
 });
- 
+
 j2.style.width = "";
 j2.style.height = "";
 var theWidth = j2.getBoundingClientRect().width;
@@ -254,6 +254,6 @@ for (el in board.objects) {
 }
 
   </script>
-  
+
   </body>
 </html>

@@ -16,13 +16,13 @@
     <div class="wrap600">
       <div id="j1" class="jxgbox"></div>
      </div>
-  
+
 <p></p>
     <div class="wrap600">
       <div id="j2" class="jxgbox"></div>
      </div>
 
-    
+
   <script>
 
  JXG.Options.text.useMathJax = true;
@@ -156,7 +156,7 @@ var graph1 = board.create('functiongraph',
  // var t = board.create('text',[5,5,function(){return "\\[y=\\sqrt{x}\\]"}],{color:"green",fontSize:16,anchorY:'top'})
 
   //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
- 
+
   var graph1 = board.create('functiongraph',
   [function(x){if(s.Value()==0){
     return a.Value()*JXG.Math.pow(b.Value()*(x-h.Value()),0.5)+k.Value()}
@@ -395,7 +395,7 @@ var button1 = board2.create('button',[2.5,-4.7,'Reset', function(){return a.setV
 
 
 /// The Logo
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-9,7], [4,2] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo", [-9,7], [4,2] ], {
 opacity:1,
 fixed:true
 });
@@ -459,6 +459,6 @@ for (el in board2.objects) {
 
 
   </script>
-  
+
   </body>
 </html>
