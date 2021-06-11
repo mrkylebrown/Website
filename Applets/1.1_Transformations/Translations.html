@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>JSXGraph template</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
     <!-- The next line is optional: MathJax -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <link rel="stylesheet" type="text/css" href="stylejsx.css">
@@ -16,13 +16,13 @@
     <div class="wrap600">
       <div id="j1" class="jxgbox"></div>
      </div>
-  
+
 <p></p>
     <div class="wrap600">
       <div id="j2" class="jxgbox"></div>
      </div>
 
-    
+
   <script>
 
  JXG.Options.text.useMathJax = true;
@@ -132,7 +132,7 @@ var graph1 = board.create('functiongraph',
  // var t = board.create('text',[5,5,function(){return "\\[y=\\sqrt{x}\\]"}],{color:"green",fontSize:16,anchorY:'top'})
 
   //The Dynamic Graph - had to do the weird calculation because jessicode didn't like ^2
- 
+
   var graph1 = board.create('functiongraph',
   [function(x){
     if (s.Value()==-1){return JXG.Math.pow((x-h.Value()),0.5)+k.Value()}},-10,10],{
@@ -170,7 +170,7 @@ var graph1 = board.create('functiongraph',
 
 
 board2.create('text',[-5, 3,
-function() { 
+function() {
   if(s.Value()==-1){
 if (h.Value()>=0 && k.Value()>=0){
 
@@ -234,7 +234,7 @@ visible: () => (s.Value() == 0) ? true : false,
 });
 
 board2.create('text',[-5, 3,
-function() { 
+function() {
   if(s.Value()==1){
 if (h.Value()>=0 && k.Value()>=0){
 
@@ -266,7 +266,7 @@ visible: () => (s.Value() == 1) ? true : false,
 });
 
 board2.create('text',[-5, 3,
-function() { 
+function() {
   if(s.Value()==2){
 if (h.Value()>=0 && k.Value()>=0){
 
@@ -298,7 +298,7 @@ visible: () => (s.Value() == 2) ? true : false,
 });
 
 board2.create('text',[-5, 3,
-function() { 
+function() {
   if(s.Value()==3){
 if (h.Value()>=0 && k.Value()>=0){
 
@@ -368,11 +368,11 @@ fixed:true
 });
 
   board2.addChild(board);
- 
 
 
 
- 
+
+
 j2.style.width = "";
 j2.style.height = "";
 var theWidth = j2.getBoundingClientRect().width;
@@ -438,6 +438,6 @@ for (el in board2.objects) {
 }
 
   </script>
-  
+
   </body>
 </html>
