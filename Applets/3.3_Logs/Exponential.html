@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>The Logarithmic Function</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+  JXG.Options.text.display = 'internal';
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-10, 10, 10, -10],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+var b = board.create('slider', [
+  [-9, 9],
+  [-5, 9],
+  [0.01, 2, 4]
+], {
+  snapWidth: 0.01,
+  name: 'b',
+  color:'green'
+});
+
+
+
+var graph = board.create('functiongraph',
+  [function(x){return JXG.Math.pow(b.Value(),x)},-9.5,8.5],{
+  firstArrow:true,
+  lastArrow:true,
+  strokeWidth:3,
+  });
+
+
+  board.create('text',[-9, 9,
+  function() {
+  return '\\[y = b^x \\]';
+  }],
+  {fontSize: 20,
+  fixed:true,
+  anchorY:'top'
+  });
+
+board.create('text',[-9, 7,
+function() {
+return '\\[y =(' + b.Value().toFixed(2) + ')^x\\]';
+}],
+{fontSize: 20,
+fixed:true,
+anchorY:'top'
+});
+
+var line = board.create('line',[[0,0],[1,1]],{color: 'green',dash:2})
+var text = board.create('text',[7,7,function(){return "\\[y=x\\]"}],{color:'green',rotate:45})
+
+var p = board.create('point',[2,function(){return b.Value()*b.Value()}],{name:function(){return '\\[(2,'+this.Y().toFixed(1)+')\\]'}});
+
+var button1 = board.create('button',[-9,3.5,'Reset', function(){return b.setValue(2)}],{fixed:true});
+
+
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [2,16], [2,2] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
