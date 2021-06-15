@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rational Functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-4, 4, 4, -4],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+var s = board.create('slider', [
+  [-2.9, 3],
+  [-2.9, 2.6],
+  [0, 0, 1]
+], {
+  snapWidth: 1,
+  label:{visible:false},
+  color:"blue"
+});
+
+board.create('text',[-3.5,3.5,function(){
+  return '\\[y=\\frac{a}{x-h}+k\\]'
+}],{fontSize:14,fixed:true})
+board.create('text',[-3.5,2.1,function(){
+  return '\\[y=\\frac{f(x)}{g(x)}\\]'
+}],{fontSize:16,fixed:true})
+
+
+
+
+var a = board.create('slider', [
+  [-3.5, -0.8],
+  [-2, -0.8],
+  [-5, 2, 5]
+], {
+  snapWidth: 0.1,
+  name: 'a',
+  color:'orange',
+  visible: () => (s.Value() == 0) ? true : false,
+});
+
+var h = board.create('slider', [
+  [-3.5, -1.5],
+  [-2, -1.5],
+  [-5, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'h',
+  color:'green',
+  visible: () => (s.Value() == 0) ? true : false,
+
+});
+
+var k = board.create('slider', [
+  [-3.5, -2.2],
+  [-2, -2.2],
+  [-5, 1, 5]
+], {
+  snapWidth: 0.1,
+  name: 'k',
+  color:'purple',
+  visible: () => (s.Value() == 0) ? true : false,
+
+});
+
+
+  board.create('text',[0.2, -0.8,
+  function() {
+  return '\\[y = f(x) \\]';
+  }],
+  {fontSize: 18,
+  fixed:true,
+  anchorY:'top',
+  color:'blue',
+ 
+
+  });
+
+
+
+var graph = board.create('functiongraph',[function(x){ if(s.Value()==0){
+  return a.Value()/(x-h.Value())+k.Value()
+} else {
+  return  a.Value()*x + k.Value()
+}
+
+}],{strokeWidth:3})
+
+var ha = board.create('line',[[0,function(){return k.Value()}],[1,function(){return k.Value()}]],{color: 'green',dash:2, visible: () => (s.Value() == 0) ? true : false,
+})
+var va = board.create('line', [[function () { return h.Value() },0], [function () { return h.Value() },1]], { color: 'green', dash: 2, visible: () => (s.Value() == 0) ? true : false,
+ })
+
+
+var line = board.create('line',[[0,0],[1,0]],{visible:false})
+
+
+
+var button1 = board.create('button',[-3.5,-3,'Reset', function(){return a.setValue(1),h.setValue(1),k.setValue(1),s.setValue(0)}],{fixed:true});
+
+
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,2.5], [1.5,1] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
