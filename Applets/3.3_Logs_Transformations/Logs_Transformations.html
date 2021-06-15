@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exponential Functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-10, 10, 10, -10],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+
+var a = board.create('slider', [
+  [-9, 9],
+  [-5, 9],
+  [-5, 1, 15]
+], {
+  snapWidth: 0.2,
+  name: 'a',
+  color:'red'
+});
+
+var b = board.create('slider', [
+  [-9, 8],
+  [-5, 8],
+  [0.01, 2, 4]
+], {
+  snapWidth: 0.01,
+  name: 'b',
+  color:'green'
+});
+
+var k = board.create('slider', [
+  [-9, 7],
+  [-5, 7],
+  [-9, 0, 9]
+], {
+  snapWidth: 0.1,
+  name: 'k',
+  color:'purple'
+});
+
+var check = board.create('checkbox',[-9,4,''],{fixed:true})
+board.create('text',[-8,3.5,function(){return 'Show \\[y=f^{-1}(x)\\]'}],{fixed:true,color:'green',fontSize:14})
+
+var graph = board.create('functiongraph',
+  [function(x){return a.Value()*JXG.Math.pow(b.Value(),x)+k.Value()}],{
+  strokeWidth:3,
+  });
+
+  var graph2 = board.create('functiongraph',
+  [function(x){return JXG.Math.log((x-k.Value())/a.Value(), b.Value())}],{
+  strokeWidth:3,
+  strokeColor:'green',
+  visible: () => (check.Value()) ? true : false,
+
+  });  
+
+  var line = board.create('line',[[-5,function(){return k.Value()}],[5,function(){return k.Value()}]],{color:'blue',dash:2})
+  
+  var line = board.create('line',[[function(){return k.Value()},-5],[function(){return k.Value()},5]],{color:'green',dash:2,  visible: () => (check.Value()) ? true : false,
+})
+
+board.create('text',[-9, 7,
+function() { if(k.Value()>=0){
+return '\\[y ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^x +'+k.Value().toFixed(1)+'\\]';
+} else if (k.Value()<0){
+return '\\[y ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^x -'+ Math.abs(k.Value().toFixed(1))+'\\]';
+}
+}
+],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'blue'
+});
+/*
+board.create('text',[2, -1,
+function() { if(k.Value()>=0){
+return '\\[x ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^y +'+k.Value().toFixed(1)+'\\]';
+} else if (k.Value()<0){
+return '\\[x ='+a.Value().toFixed(1)+' (' + b.Value().toFixed(2) + ')^y -'+ Math.abs(k.Value().toFixed(1))+'\\]';
+}
+}
+],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green'
+});
+*/
+board.create('text',[2, -3,
+function() { if(k.Value()>=0){
+return '\\[y =\\log_{'+b.Value().toFixed(2)+'}\\left(\\frac{x+'+k.Value().toFixed(1)+'}{'+a.Value().toFixed(1)+'}\\right)\\]';
+} else if (k.Value()<0){
+  return '\\[y =\\log_{'+b.Value().toFixed(2)+'}\\left(\\frac{x-'+Math.abs(k.Value().toFixed(1))+'}{'+a.Value().toFixed(1)+'}\\right)\\]';
+}
+}
+],
+{fontSize: 20,
+fixed:true,
+anchorY:'top',
+color:'green',
+visible: () => (check.Value()) ? true : false,
+
+});
+
+var p = board.create('point',[0,function(){return a.Value()+k.Value()}],{name:function(){return '\\[(0,'+this.Y().toFixed(1)+')\\]'}});
+var xline = board.create('line',[[0,0],[1,0]],{visible:false})
+var x =board.create('intersection',[xline,graph],{name:function(){return '\\[('+this.X().toFixed(1)+',0)\\]'}})
+var yline = board.create('line',[[0,0],[0,1]],{visible:false})
+var y =board.create('intersection',[yline,graph2],{
+  name:function(){return '\\[(0,'+this.Y().toFixed(1)+')\\]'},
+  visible: () => (check.Value()) ? true : false,
+})
+var x2 =board.create('intersection',[xline,graph2],{
+  name:function(){return '\\[('+this.X().toFixed(1)+',0)\\]'},
+  visible: () => (check.Value()) ? true : false,
+})
+
+
+
+var button1 = board.create('button',[-3,9,'Reset', function(){return a.setValue(1),b.setValue(2),k.setValue(0)}],{fixed:true});
+
+
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [5,7], [3,1.5] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
