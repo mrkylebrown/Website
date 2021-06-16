@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Rational Functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+
+var board = JXG.JSXGraph.initBoard('j2', {
+  boundingbox: [-4.5, 4.5, 4.5, -4.5],
+  axis: true,
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+});
+  board.create('point', [-4, 0], { visible: true, size: 0, name:'', showInfobox: false})
+  board.create('point', [-3, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [-2, 0], { visible: true, size: 0, name: '', showInfobox: false })
+  board.create('point', [-1, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [0, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [1, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [2, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [3, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+  board.create('point', [4, 0], { visible: true, size: 0, name: '' , showInfobox: false})
+var line = board.create('line', [[0, 0], [1, 0]], { visible: false })
+  var a1 = board.create('glider', [2, 0, line], {
+    visible: true, snapToPoints: true, attractorDistance: 0.3, color: "red", size: 4, showInfobox: false, name: ''
+  })
+
+  var a2 = board.create('glider', [-3, 0, line], {
+      visible: true, snapToPoints: true, attractorDistance: 0.3, color: "red", size: 4, showInfobox: false, name: ''
+    })
+
+var as1 = board.create('line',[[function(){return a1.X()},0],[function(){return a1.X()},1]],{color:'green',dash:2})
+var as2 = board.create('line', [[function () { return a2.X() }, 0], [function () { return a2.X() }, 1]], { color: 'green', dash: 2 })
+
+  var xint1 = board.create('glider', [1, 0, line], {
+    visible: true, snapToPoints: true, attractorDistance: 0.3, color: "blue", size: 4, showInfobox: false, name: ''
+  })
+
+  var xint2 = board.create('glider', [-1, 0, line], {
+    visible: true, snapToPoints: true, attractorDistance: 0.3, color: "blue", size: 4, showInfobox: false, name: ''
+  })
+var graph = board.create('functiongraph',[function(x){
+  return ((x - xint1.X())*(x - xint2.X()))/((x - a1.X())*(x - a2.X()))
+}])
+var r = ((a1.X() - xint1.X()) * (a1.X() - xint2.X())) / ((a1.X() - a1.X()) * (a1.X() - a2.X()))
+var hole1 = board.create('intersection',[as1,graph],{name:function(){
+  return '\\[('+this.X().toFixed(0)+','+this.Y().toFixed(0)+')\\]'
+}})
+var c1 = board.create('circle', [hole1, 0.5]);
+var button1 = board.create('button',[-3.5,-3,'Reset', function(){return }],{fixed:true});
+
+
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,2.5], [1.5,0.8] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
