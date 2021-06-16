@@ -27,22 +27,11 @@ var board = JXG.JSXGraph.initBoard('j2', {
   pan:{enabled:false}
 });
 
-var s = board.create('slider', [
-  [-2.2, 3.5],
-  [-1.8, 3.5],
-  [0, 0, 1]
-], {
-  snapWidth: 1,
-  label:{visible:false},
-  color:"blue"
-});
 
-board.create('text',[-3.9,3.5,function(){
+board.create('text',[-3.5,3,function(){
   return '\\[y=\\frac{a}{x-h}+k\\]'
-}],{fontSize:12,fixed:true})
-board.create('text',[-1.4,3.5,function(){
-  return '\\[y=\\frac{f(x)}{g(x)}\\]'
-}],{fontSize:12,fixed:true})
+}],{fontSize:18,fixed:true})
+
 
 
 
@@ -55,36 +44,33 @@ var a = board.create('slider', [
   snapWidth: 0.1,
   name: 'a',
   color:'orange',
-  visible: () => (s.Value() == 0) ? true : false,
 });
 
 var h = board.create('slider', [
   [-3.5, -1.5],
   [-2, -1.5],
-  [-4, 1, 4]
+  [-4, 0, 4]
 ], {
   snapWidth: 0.1,
   name: 'h',
   color:'green',
-  visible: () => (s.Value() == 0) ? true : false,
 
 });
 
 var k = board.create('slider', [
   [-3.5, -2.2],
   [-2, -2.2],
-  [-4, 1, 4]
+  [-4, 0, 4]
 ], {
   snapWidth: 0.1,
   name: 'k',
   color:'purple',
-  visible: () => (s.Value() == 0) ? true : false,
 
 });
 
 
-  board.create('text',[-3.5, 3,
-  function() { if (s.Value()==0) {if(h.Value()>=0 && k.Value()>=0){
+  board.create('text',[-3.5, 2.5,
+  function() {if(h.Value()>=0 && k.Value()>=0){
   return '\\[y = \\frac{'+a.Value().toFixed(1)+'}{x-'+h.Value().toFixed(1)+'} + '+k.Value().toFixed(1)+' \\]';
   } else if (h.Value() < 0 && k.Value() >= 0) {
     return '\\[y = \\frac{' + a.Value().toFixed(1) + '}{x+' + Math.abs(h.Value().toFixed(1)) + '} + ' + k.Value().toFixed(1) + ' \\]';
@@ -92,11 +78,6 @@ var k = board.create('slider', [
     return '\\[y = \\frac{' + a.Value().toFixed(1) + '}{x-' + h.Value().toFixed(1) + '} - ' + Math.abs(k.Value().toFixed(1)) + ' \\]';
   } else if (h.Value() < 0 && k.Value() < 0) {
     return '\\[y = \\frac{' + a.Value().toFixed(1) + '}{x+' + Math.abs(h.Value().toFixed(1)) + '} - ' + Math.abs(k.Value().toFixed(1)) + ' \\]';
-  }
-  
-  }
-  else {
-    return '\\[y=x\\]'
   }
   }],
   {fontSize: 18,
@@ -109,17 +90,13 @@ var k = board.create('slider', [
 
 
 
-var graph = board.create('functiongraph',[function(x){ if(s.Value()==0){
+var graph = board.create('functiongraph',[function(x){
   return a.Value()/(x-h.Value())+k.Value()
-} else {
-  return  a.Value()*x + k.Value()
-}
-
 }],{strokeWidth:3})
 
-var ha = board.create('line',[[0,function(){return k.Value()}],[1,function(){return k.Value()}]],{color: 'green',dash:2, visible: () => (s.Value() == 0) ? true : false,
+var ha = board.create('line',[[0,function(){return k.Value()}],[1,function(){return k.Value()}]],{color: 'green',dash:2,
 })
-var va = board.create('line', [[function () { return h.Value() },0], [function () { return h.Value() },1]], { color: 'green', dash: 2, visible: () => (s.Value() == 0) ? true : false,
+var va = board.create('line', [[function () { return h.Value() },0], [function () { return h.Value() },1]], { color: 'green', dash: 2,
  })
 
 
@@ -129,19 +106,19 @@ var p1 = board.create('point',[function(){
   return 1+h.Value()
   },function(){
     return a.Value()*1+k.Value()
-  }],{visible: () => (s.Value() == 0) ? true : false,
+  }],{
   name:function(){return '\\[\\left('+this.X().toFixed(1)+','+this.Y().toFixed(1)+'\\right)\\] '}})
 
   var p2 = board.create('point', [function () {
     return -1 + h.Value()
   }, function () {
     return a.Value() * -1 + k.Value()
-  }], {  visible: () => (s.Value() == 0) ? true : false,
+  }], {
   name: function () { return '\\[\\left(' + this.X().toFixed(1) + ',' + this.Y().toFixed(1) + '\\right)\\] ' } })
 
 
 
-var button1 = board.create('button',[-3.5,-3,'Reset', function(){return a.setValue(1),h.setValue(1),k.setValue(1),s.setValue(0)}],{fixed:true});
+var button1 = board.create('button',[-3.5,-3,'Reset', function(){return a.setValue(1),h.setValue(0),k.setValue(0)}],{fixed:true});
 
 
 var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,2.5], [1.5,0.8] ], {
