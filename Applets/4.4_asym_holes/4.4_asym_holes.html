@@ -119,7 +119,12 @@ board.create('text',[-3.6,3,function(){ if (xint2.X()<0 && xint1.X()<0 && a2.X()
 
 }],{fontSize:22})
 
-board.create('text',[2.1,0.1,'Drag me'],{color:'red',fontSize:16
+board.create('text',[2.1,0.1,'Drag me'],{color:'red',fontSize:16,fixed:true,
+visible: () => (xint1.X()==1 && xint2.X()==-1 && a1.X()==2 && a2.X()==-3) ? true : false,
+})
+
+board.create('text',[-1.8,0.2,'Drag me'],{color:'blue',fontSize:16,fixed:true,
+visible: () => (xint1.X()==1 && xint2.X()==-1 && a1.X()==2 && a2.X()==-3) ? true : false,
 })
 
 var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,3], [1.8,1] ], {
