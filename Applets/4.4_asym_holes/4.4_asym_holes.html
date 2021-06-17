@@ -76,7 +76,7 @@ var hole2 = board.create('intersection',[as2,graph],{size:0,name:''
 })
 var c2 = board.create('circle', [hole2, 0.1],{fillColor:'white'});
 
-board.create('text',[-3.8,3,function(){ if (xint2.X()<0 && xint1.X()<0 && a2.X()<0 && a1.X()<0) {
+board.create('text',[-3.6,3,function(){ if (xint2.X()<0 && xint1.X()<0 && a2.X()<0 && a1.X()<0) {
   //4
   return '\\[y=\\frac{(x+'+Math.abs(xint2.X().toFixed(1))+')(x+'+Math.abs(xint1.X().toFixed(1))+')}{(x+'+Math.abs(a2.X().toFixed(1))+')(x+'+Math.abs(a1.X().toFixed(1))+')}\\]'
 } else if (xint1.X()>=0 && xint2.X()>=0 && a1.X()>=0 && a2.X()>=0) {
@@ -117,10 +117,10 @@ board.create('text',[-3.8,3,function(){ if (xint2.X()<0 && xint1.X()<0 && a2.X()
   return '\\[y=\\frac{(x+'+Math.abs(xint2.X().toFixed(1))+')(x-'+Math.abs(xint1.X().toFixed(1))+')}{(x+'+Math.abs(a2.X().toFixed(1))+')(x-'+Math.abs(a1.X().toFixed(1))+')}\\]'
 } else {return 'x'}
 
-}],{fontSize:20})
+}],{fontSize:22})
 
 
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,2.5], [1.5,0.8] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,3], [1.8,1] ], {
 opacity:1,
 fixed:true
 });
