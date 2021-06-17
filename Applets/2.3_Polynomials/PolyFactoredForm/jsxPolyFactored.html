@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>JSXGraph template</title>
+    <title>Polynomials in Factored Form</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <link href="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph@1.1.0/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
@@ -39,7 +39,7 @@ var board = JXG.JSXGraph.initBoard('j2', {
   boundingbox: [-6, 6, 6, -6],
   axis: true,
   showCopyright: false,
-  showNavigation: false,
+  showNavigation: true,
   pan:{enabled:false}
 });
 
@@ -102,8 +102,8 @@ var e1 = board2.create('slider', [
 });
 
 var e2 = board2.create('slider', [
-  [-0, 3],
-  [2, 3],
+  [-0.5, 3],
+  [1.5, 3],
   [1, 1, 5]
 ], {
   snapWidth: 1,
@@ -113,8 +113,8 @@ var e2 = board2.create('slider', [
 });
 
 var e3 = board2.create('slider', [
-  [4, 3],
-  [6, 3],
+  [3, 3],
+  [5, 3],
   [1, 2, 5]
 ], {
   snapWidth: 1,
@@ -174,11 +174,13 @@ fixed:true,
 anchorY:'bottom'
 });
 
+var button1 = board2.create('button',[3.5,-0.4,'Reset', function(){return a.setValue(1),b.setValue(-1),c.setValue(1),d.setValue(3),e1.setValue(1),e2.setValue(1),e3.setValue(2)}],{fixed:true});
+
   board2.addChild(board);
 
 
 /// The Logo
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Math30-1Edge-online-2-logo-whiteonblack.jpg", [-5.5,4], [2,1.5] ], {
+var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [-5.5,4], [2,1.2] ], {
 opacity:1,
 fixed:true
 });
