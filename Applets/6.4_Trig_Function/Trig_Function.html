@@ -1,0 +1,346 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exploring Trig Functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+     <p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+
+  JXG.Options.slider.ticks.majorHeight = 0;
+
+  var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-1.5, 1.1,3 , -1.1],
+    axis: true,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+var board = JXG.JSXGraph.initBoard('j2',{
+  boundingbox: [-3.5,1.5,7,-1.5], 
+  axis:false, 
+  showCopyright: false,
+  showNavigation: false,
+  pan:{enabled:false}
+ } 
+);
+var xAxPt0 = board.create('point', [0,0], {needsRegularUpdate: false, visible: false});
+var xAxPt1 = board.create('point', [1,0], {needsRegularUpdate: false, visible: false});
+var xaxis = board.create('axis', 
+	[xAxPt0,xAxPt1], {
+	needsRegularUpdate: false, 
+	ticks:{
+	  label:{offset:[-10,-10]},
+	  scale: Math.PI/4, 
+	  scaleSymbol: 'π',
+    drawLabels:false,
+    minorTicks:0
+	  } 
+ }
+);
+
+var pi = board.create('text',[Math.PI/4,-0.1,function(){
+  return '\\[\\frac{\\pi}{4}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[Math.PI/2,-0.1,function(){
+  return '\\[\\frac{\\pi}{2}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[3*Math.PI/4,-0.1,function(){
+  return '\\[\\frac{3\\pi}{2}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[Math.PI,-0.1,function(){
+  return '\\[\\pi\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[5*Math.PI/4,-0.1,function(){
+  return '\\[\\frac{5\\pi}{4}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[3*Math.PI/2,-0.1,function(){
+  return '\\[\\frac{3\\pi}{2}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[7*Math.PI/4,-0.1,function(){
+  return '\\[\\frac{7\\pi}{4}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[2*Math.PI,-0.1,function(){
+  return '\\[2\\pi\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[-1*Math.PI/4,-0.1,function(){
+  return '\\[-\\frac{\\pi}{4}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[-1*Math.PI/2,-0.1,function(){
+  return '\\[-\\frac{\\pi}{2}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[-3*Math.PI/4,-0.1,function(){
+  return '\\[-\\frac{3\\pi}{4}\\]'
+}],{fixed:true});
+
+var pi = board.create('text',[-1*Math.PI,-0.1,function(){
+  return '\\[-\\pi\\]'
+}],{fixed:true});
+
+var xTicks, yTicks, bb;
+xaxis.defaultTicks.ticksFunction = function () { return xTicks; };
+board.fullUpdate(); // full update is required
+var coords=[];
+var xPt0 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [0, offset], board);	
+	return coords.usrCoords;
+}
+var xPt1 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [board.canvasWidth, offset], board);
+	return coords.usrCoords;
+}
+var yAxPt0 = board.create('point', [0,0], {needsRegularUpdate: false, visible: false});
+var yAxPt1 = board.create('point', [0,1], {needsRegularUpdate: false, visible: false});	
+var yaxis = board.create('axis', [yAxPt0,yAxPt1], {
+	needsRegularUpdate: false, 
+	ticks:{
+	  label:{offset:[10,0]}
+	} 
+  }
+);
+yaxis.defaultTicks.ticksFunction = function () { return yTicks; };
+board.fullUpdate();
+var yPt0 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [offset,board.canvasHeight], board);
+	return coords.usrCoords;
+}
+var yPt1 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [offset,0], board);
+	return coords.usrCoords;
+}
+var setTicks = function() {
+	bb = board.getBoundingBox();
+	xTicksVal = Math.pow(10, Math.floor((Math.log(0.2*(bb[2]-bb[0])))/Math.LN10));
+	if( (bb[2]-bb[0])/xTicksVal > 7) {
+	  xTicks = xTicksVal;
+	} else {
+	  xTicks = 0.5* xTicksVal;
+	}
+	yTicksVal = Math.pow(10, Math.floor((Math.log(0.6*(bb[1]-bb[3])))/Math.LN10));
+	if( (bb[1]-bb[3])/yTicksVal > 6) {
+	  yTicks = yTicksVal;
+	} else {
+	  yTicks = 0.5* yTicksVal;
+	}
+	board.fullUpdate(); // full update is required
+}
+setTicks();
+var origPt = board.create('point', [0,0],{visible:false});
+board.on('boundingbox', function() {
+	bb = board.getBoundingBox();
+	mycoordsY = new JXG.Coords(JXG.COORDS_BY_USER, [0,origPt.Y()], board);
+	yPixels = mycoordsY.scrCoords[2];
+	mycoordsX = new JXG.Coords(JXG.COORDS_BY_USER, [0,origPt.X()], board);
+	xPixels = mycoordsX.scrCoords[1];	
+	if( 10 > yPixels) {	
+		xAxPt0.moveTo (xPt0(10),0);
+		xAxPt1.moveTo (xPt1(10),0);
+		xaxis.point1.setAttribute({frozen: true});
+		xaxis.point2.setAttribute({frozen: true});
+		xaxis.setAttribute({strokeColor: '#a00'});
+		xaxis.defaultTicks.visProp.label.offset = [-10,-10];
+	} else if( yPixels > board.canvasHeight - 10) {
+		xAxPt0.moveTo (xPt0(board.canvasHeight - 10),0);
+		xAxPt1.moveTo (xPt1(board.canvasHeight - 10),0);
+		xaxis.point1.setAttribute({frozen: true});
+		xaxis.point2.setAttribute({frozen: true});
+		//xaxis.setAttribute({color: '#a00'});
+		xaxis.setAttribute({strokeColor: '#a00'});
+		xaxis.defaultTicks.visProp.label.offset = [-10,9];
+	} else {
+		xaxis.point1.setAttribute({frozen: false});
+		xaxis.point2.setAttribute({frozen: false});
+		xaxis.setAttribute({color: '#666'});
+		xAxPt0.moveTo ([0,0],0);
+		xAxPt1.moveTo ([1,0],0);
+	}	
+	if( 5 > xPixels) {
+		yAxPt0.moveTo (yPt0(5),0);
+		yAxPt1.moveTo (yPt1(5),0);
+		yaxis.point1.setAttribute({frozen: true});
+		yaxis.point2.setAttribute({frozen: true});
+		yaxis.setAttribute({strokeColor: '#a00'});
+		yaxis.defaultTicks.visProp.label.offset = [7,0];
+	} else if( xPixels > board.canvasWidth-5) {
+		yAxPt0.moveTo (yPt0(board.canvasWidth-5),0);
+		yAxPt1.moveTo (yPt1(board.canvasWidth-5),0);
+		yaxis.point1.setAttribute({frozen: true});
+		yaxis.point2.setAttribute({frozen: true});			
+		yaxis.setAttribute({strokeColor: '#a00'});
+		yaxis.defaultTicks.visProp.label.offset = [-20,0];
+		yaxis.defaultTicks.visProp.label.align = 'right';
+	} else {           
+		yaxis.point1.setAttribute({frozen: false});
+		yaxis.point2.setAttribute({frozen: false});
+		yaxis.setAttribute({strokeColor: '#666'});
+		yAxPt0.moveTo ([0,0],0);
+		yAxPt1.moveTo ([0,1],0);
+	}
+	setTicks();
+});
+//on graph2
+var sin = board2.create('checkbox',[1.5,0.8,''],{fixed:true,checked:true});
+var sint = board2.create('text',[1.7,0.8,function(){return '\\[\\sin\\theta\\]'}],{fixed:true,fontSize:16});
+var cos = board2.create('checkbox',[1.5,0.6,''],{fixed:true});
+var cost = board2.create('text',[1.7,0.6,function(){return '\\[\\cos\\theta\\]'}],{fixed:true,fontSize:16});
+var tan = board2.create('checkbox',[1.5,0.4,''],{fixed:true});
+var tant = board2.create('text',[1.7,0.4,function(){return '\\[\\tan\\theta\\]'}],{fixed:true,fontSize:16});
+
+
+var c = board2.create('point',[0,0],{fixed:true,name:''})
+var circ = board2.create('circle',[c,1])
+
+///on graph
+var li = board.create('segment',[[-1*Math.PI,0],[2*Math.PI,0]],{visible:false})
+var g = board.create('glider',[0,0,li],{name:'',showInfobox: false})
+board.create('text',[0.1,0.2,'Drag me'],{color:'red',visible: () => (g.X()==0) ? true : false
+})
+var ps = board.create('point',[function(){return g.X()},function(){return Math.sin(g.X())}],{showInfobox: false,name:'',color:'blue',size:0})
+var as = board.create('arrow', [g, ps],{color:'green',  
+visible: () => (sin.Value()) ? true : false
+});
+var pc = board.create('point',[function(){return g.X()},function(){return Math.cos(g.X())}],{name:'',showInfobox: false,size:0})
+var ac = board.create('arrow', [g, pc],{color:'red',  
+visible: () => (cos.Value()) ? true : false
+});
+
+var pt = board.create('point',[function(){return g.X()},function(){return Math.tan(g.X())}],{name:'',showInfobox: false,size:0})
+var at = board.create('arrow', [g, pt],{color:'purple',  
+visible: () => (tan.Value()) ? true : false
+});
+
+
+var grfs = board.create('functiongraph', 
+  function(x){return Math.sin(x); },{
+	strokeColor:'green', highlight:false,
+  visible: () => (sin.Value()) ? true : false
+	}
+  );		
+  
+  var grfc = board.create('functiongraph', 
+  function(x){return Math.cos(x); },{
+	strokeColor:'red', highlight:false,
+  visible: () => (cos.Value()) ? true : false
+	}
+  );  
+
+  var grft = board.create('functiongraph', 
+  function(x){return Math.tan(x); },{
+	strokeColor:'purple', highlight:false,
+  visible: () => (tan.Value()) ? true : false
+	}
+  );  
+var asy = board.create('line',[[Math.PI/2,0],[Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+var asy = board.create('line',[[3*Math.PI/2,0],[3*Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+var asy = board.create('line',[[-1*Math.PI/2,0],[-1*Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+
+
+
+//on graph2
+var p2 = board2.create('point',[function(){return Math.cos(g.X())},function(){return Math.sin(g.X())}],{name:'',color:'blue'})
+var as2 = board2.create('arrow',[[function(){return Math.cos(g.X())},0],p2],{color:'green',visible: () => (sin.Value() || tan.Value()) ? true : false
+})
+var ac2 = board2.create('arrow',[c,[function(){return Math.cos(g.X())},0]],{color:'red',visible: () => (cos.Value() || tan.Value()) ? true : false
+})
+var h = board2.create('segment',[c,p2])
+var point = board2.create('point',[1,0],{fixed:true,name:'',size:0})
+board2.create('angle',[point,c,p2],{radius:0.1,name:function(){return '\\[\\theta\\]'},  visible: () => (g.X()>=0) ? true : false
+})
+board2.create('angle',[p2,c,point],{radius:0.1,name:function(){return '\\[\\theta\\]'},  visible: () => (g.X()<0) ? true : false
+})
+
+
+
+
+board.addChild(board2);
+board2.addChild(board);
+
+var im = board2.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [1.5,-0.8], [1,0.5] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
