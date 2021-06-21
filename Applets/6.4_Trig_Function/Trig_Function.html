@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Composite Functions</title>
+    <title>Exploring Trig Functions</title>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
@@ -40,11 +40,6 @@ var board = JXG.JSXGraph.initBoard('j2',{
   pan:{enabled:false}
  } 
 );
-var grf = board.create('functiongraph', 
-  function(x){return Math.sin(x); },{
-	strokeColor:'#066', highlight:false
-	}
-  );		  
 var xAxPt0 = board.create('point', [0,0], {needsRegularUpdate: false, visible: false});
 var xAxPt1 = board.create('point', [1,0], {needsRegularUpdate: false, visible: false});
 var xaxis = board.create('axis', 
@@ -210,7 +205,7 @@ board.on('boundingbox', function() {
 	setTicks();
 });
 //on graph2
-var sin = board2.create('checkbox',[1.5,0.8,''],{fixed:true});
+var sin = board2.create('checkbox',[1.5,0.8,''],{fixed:true,checked:true});
 var sint = board2.create('text',[1.7,0.8,function(){return '\\[\\sin\\theta\\]'}],{fixed:true,fontSize:16});
 var cos = board2.create('checkbox',[1.5,0.6,''],{fixed:true});
 var cost = board2.create('text',[1.7,0.6,function(){return '\\[\\cos\\theta\\]'}],{fixed:true,fontSize:16});
@@ -221,18 +216,75 @@ var tant = board2.create('text',[1.7,0.4,function(){return '\\[\\tan\\theta\\]'}
 var c = board2.create('point',[0,0],{fixed:true,name:''})
 var circ = board2.create('circle',[c,1])
 
-
 ///on graph
-var li = board.create('line',[[0,0],[1,0]],{visible:false})
-var g = board.create('glider',[0,0,li])
-var ps = board.create('point',[function(){return g.X()},function(){return Math.sin(g.X())}])
-var as = board.create('arrow', [g, ps]);
-var pc = board.create('point',[function(){return g.X()},function(){return Math.cos(g.X())}])
+var li = board.create('segment',[[-1*Math.PI,0],[2*Math.PI,0]],{visible:false})
+var g = board.create('glider',[0,0,li],{name:'',showInfobox: false})
+board.create('text',[0.1,0.2,'Drag me'],{color:'red',visible: () => (g.X()==0) ? true : false
+})
+var ps = board.create('point',[function(){return g.X()},function(){return Math.sin(g.X())}],{showInfobox: false,name:'',color:'blue',size:0})
+var as = board.create('arrow', [g, ps],{color:'green',  
+visible: () => (sin.Value()) ? true : false
+});
+var pc = board.create('point',[function(){return g.X()},function(){return Math.cos(g.X())}],{name:'',showInfobox: false,size:0})
+var ac = board.create('arrow', [g, pc],{color:'red',  
+visible: () => (cos.Value()) ? true : false
+});
 
-board2.addChild(board);
+var pt = board.create('point',[function(){return g.X()},function(){return Math.tan(g.X())}],{name:'',showInfobox: false,size:0})
+var at = board.create('arrow', [g, pt],{color:'purple',  
+visible: () => (tan.Value()) ? true : false
+});
+
+
+var grfs = board.create('functiongraph', 
+  function(x){return Math.sin(x); },{
+	strokeColor:'green', highlight:false,
+  visible: () => (sin.Value()) ? true : false
+	}
+  );		
+  
+  var grfc = board.create('functiongraph', 
+  function(x){return Math.cos(x); },{
+	strokeColor:'red', highlight:false,
+  visible: () => (cos.Value()) ? true : false
+	}
+  );  
+
+  var grft = board.create('functiongraph', 
+  function(x){return Math.tan(x); },{
+	strokeColor:'purple', highlight:false,
+  visible: () => (tan.Value()) ? true : false
+	}
+  );  
+var asy = board.create('line',[[Math.PI/2,0],[Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+var asy = board.create('line',[[3*Math.PI/2,0],[3*Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+var asy = board.create('line',[[-1*Math.PI/2,0],[-1*Math.PI/2,1]],{color:'orange',dash:2,  visible: () => (tan.Value()) ? true : false
+})
+
+
+
+//on graph2
+var p2 = board2.create('point',[function(){return Math.cos(g.X())},function(){return Math.sin(g.X())}],{name:'',color:'blue'})
+var as2 = board2.create('arrow',[[function(){return Math.cos(g.X())},0],p2],{color:'green',visible: () => (sin.Value() || tan.Value()) ? true : false
+})
+var ac2 = board2.create('arrow',[c,[function(){return Math.cos(g.X())},0]],{color:'red',visible: () => (cos.Value() || tan.Value()) ? true : false
+})
+var h = board2.create('segment',[c,p2])
+var point = board2.create('point',[1,0],{fixed:true,name:'',size:0})
+board2.create('angle',[point,c,p2],{radius:0.1,name:function(){return '\\[\\theta\\]'},  visible: () => (g.X()>=0) ? true : false
+})
+board2.create('angle',[p2,c,point],{radius:0.1,name:function(){return '\\[\\theta\\]'},  visible: () => (g.X()<0) ? true : false
+})
+
+
+
+
 board.addChild(board2);
+board2.addChild(board);
 
-var im = board.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [2,3], [1.8,1] ], {
+var im = board2.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [1.5,-0.8], [1,0.5] ], {
 opacity:1,
 fixed:true
 });
