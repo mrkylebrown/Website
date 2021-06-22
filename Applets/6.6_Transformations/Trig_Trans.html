@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Transformations of Trig Functions</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <link rel="stylesheet" type="text/css" href="stylejsx.css">
+  </head>
+  <body>
+    <div class="wrap600">
+      <div id="j1" class="jxgbox"></div>
+     </div>
+     <p></p>
+    <div class="wrap600">
+      <div id="j2" class="jxgbox"></div>
+     </div>
+
+  <script>
+  JXG.Options.text.useMathJax = true;
+
+  JXG.Options.slider.ticks.majorHeight = 0;
+
+  var board2 = JXG.JSXGraph.initBoard('j1', {
+    boundingbox: [-1.5, 1.1,3 , -1.1],
+    axis: false,
+    showCopyright: false,
+    showNavigation: false,
+    pan:{enabled:false}
+  });
+
+var board = JXG.JSXGraph.initBoard('j2',{
+	boundingbox: [-7,2.4,20,-2.4], 
+  axis:false, 
+  showCopyright:false,  
+  showNavigation:true,
+  zoom: {factorX: 1.25,factorY: 1.25,wheel: true,needshift: true,eps: 0.1} 
+ } 
+ );
+var xAxPt0 = board.create('point', [0,0], {needsRegularUpdate: false, visible: false});
+var xAxPt1 = board.create('point', [1,0], {needsRegularUpdate: false, visible: false});
+var xaxis = board.create('axis', 
+	[xAxPt0,xAxPt1], {
+	needsRegularUpdate: false, 
+	ticks:{
+	  label:{offset:[-10,-10]},
+	  scale: Math.PI, 
+	  scaleSymbol: 'π',
+    drawLabels:true,
+    minorTicks:0
+	  } 
+ }
+);
+
+
+
+var xTicks, yTicks, bb;
+xaxis.defaultTicks.ticksFunction = function () { return xTicks; };
+board.fullUpdate(); // full update is required
+var coords=[];
+var xPt0 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [0, offset], board);	
+	return coords.usrCoords;
+}
+var xPt1 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [board.canvasWidth, offset], board);
+	return coords.usrCoords;
+}
+var yAxPt0 = board.create('point', [0,0], {needsRegularUpdate: false, visible: false});
+var yAxPt1 = board.create('point', [0,1], {needsRegularUpdate: false, visible: false});	
+var yaxis = board.create('axis', [yAxPt0,yAxPt1], {
+	needsRegularUpdate: false, 
+	ticks:{
+	  label:{offset:[10,0]}
+	} 
+  }
+);
+yaxis.defaultTicks.ticksFunction = function () { return yTicks; };
+board.fullUpdate();
+var yPt0 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [offset,board.canvasHeight], board);
+	return coords.usrCoords;
+}
+var yPt1 = function(offset) {
+	coords = new JXG.Coords(JXG.COORDS_BY_SCREEN, [offset,0], board);
+	return coords.usrCoords;
+}
+var setTicks = function() {
+	bb = board.getBoundingBox();
+	xTicksVal = Math.pow(10, Math.floor((Math.log(0.2*(bb[2]-bb[0])))/Math.LN10));
+	if( (bb[2]-bb[0])/xTicksVal > 7) {
+	  xTicks = xTicksVal;
+	} else {
+	  xTicks = 0.5* xTicksVal;
+	}
+	yTicksVal = Math.pow(10, Math.floor((Math.log(0.6*(bb[1]-bb[3])))/Math.LN10));
+	if( (bb[1]-bb[3])/yTicksVal > 6) {
+	  yTicks = yTicksVal;
+	} else {
+	  yTicks = 0.5* yTicksVal;
+	}
+	board.fullUpdate(); // full update is required
+}
+setTicks();
+var origPt = board.create('point', [0,0],{visible:false});
+board.on('boundingbox', function() {
+	bb = board.getBoundingBox();
+	mycoordsY = new JXG.Coords(JXG.COORDS_BY_USER, [0,origPt.Y()], board);
+	yPixels = mycoordsY.scrCoords[2];
+	mycoordsX = new JXG.Coords(JXG.COORDS_BY_USER, [0,origPt.X()], board);
+	xPixels = mycoordsX.scrCoords[1];	
+	if( 10 > yPixels) {	
+		xAxPt0.moveTo (xPt0(10),0);
+		xAxPt1.moveTo (xPt1(10),0);
+		xaxis.point1.setAttribute({frozen: true});
+		xaxis.point2.setAttribute({frozen: true});
+		xaxis.setAttribute({strokeColor: '#a00'});
+		xaxis.defaultTicks.visProp.label.offset = [-10,-10];
+	} else if( yPixels > board.canvasHeight - 10) {
+		xAxPt0.moveTo (xPt0(board.canvasHeight - 10),0);
+		xAxPt1.moveTo (xPt1(board.canvasHeight - 10),0);
+		xaxis.point1.setAttribute({frozen: true});
+		xaxis.point2.setAttribute({frozen: true});
+		//xaxis.setAttribute({color: '#a00'});
+		xaxis.setAttribute({strokeColor: '#a00'});
+		xaxis.defaultTicks.visProp.label.offset = [-10,9];
+	} else {
+		xaxis.point1.setAttribute({frozen: false});
+		xaxis.point2.setAttribute({frozen: false});
+		xaxis.setAttribute({color: '#666'});
+		xAxPt0.moveTo ([0,0],0);
+		xAxPt1.moveTo ([1,0],0);
+	}	
+	if( 5 > xPixels) {
+		yAxPt0.moveTo (yPt0(5),0);
+		yAxPt1.moveTo (yPt1(5),0);
+		yaxis.point1.setAttribute({frozen: true});
+		yaxis.point2.setAttribute({frozen: true});
+		yaxis.setAttribute({strokeColor: '#a00'});
+		yaxis.defaultTicks.visProp.label.offset = [7,0];
+	} else if( xPixels > board.canvasWidth-5) {
+		yAxPt0.moveTo (yPt0(board.canvasWidth-5),0);
+		yAxPt1.moveTo (yPt1(board.canvasWidth-5),0);
+		yaxis.point1.setAttribute({frozen: true});
+		yaxis.point2.setAttribute({frozen: true});			
+		yaxis.setAttribute({strokeColor: '#a00'});
+		yaxis.defaultTicks.visProp.label.offset = [-20,0];
+		yaxis.defaultTicks.visProp.label.align = 'right';
+	} else {           
+		yaxis.point1.setAttribute({frozen: false});
+		yaxis.point2.setAttribute({frozen: false});
+		yaxis.setAttribute({strokeColor: '#666'});
+		yAxPt0.moveTo ([0,0],0);
+		yAxPt1.moveTo ([0,1],0);
+	}
+	setTicks();
+});
+//on graph2
+var s = board2.create('slider', [
+  [1.5, 0.8],
+  [1.5, 0.6],
+  [0, 0, 1]
+], {
+  snapWidth: 1,
+  label:{visible:false},
+  color:"blue"
+});
+var sint = board2.create('text',[1.7,0.8,function(){return '\\[y=\\sin\\theta\\]'}],{fixed:true,fontSize:16});
+var cost = board2.create('text',[1.7,0.6,function(){return '\\[y=\\cos\\theta\\]'}],{fixed:true,fontSize:16});
+
+
+
+/// The sliders
+var a = board2.create('slider', [
+  [1, 0.3],
+  [2, 0.3],
+  [-4, 1, 4]
+], {
+  label:{visible:true},
+  color:"green",
+  name:'a'
+});
+
+var b = board2.create('slider', [
+  [1, 0],
+  [2, 0],
+  [-4, 1, 4]
+], {
+  label:{visible:true},
+  color:"red",
+  name:'b'
+});
+
+var c = board2.create('slider', [
+  [1, -0.3],
+  [2, -0.3],
+  [-10, 0, 10]
+], {
+  label:{visible:true},
+  color:"orange",
+  name:'c'
+});
+
+var d = board2.create('slider', [
+  [1, -0.6],
+  [2, -0.6],
+  [-6, 0, 6]
+], {
+  label:{visible:true},
+  color:"purple",
+  name:'d'
+});
+
+//The Equations
+var eq = board2.create('text',[-1.2,0.2,function(){if(s.Value()==0){
+	return '\\[y=a\\sin[b(x-c)]+d\\]'
+} else {
+	return '\\[y=a\\cos[b(x-c)]+d\\]'
+
+}
+}],{fontSize:20,fixed:true})
+
+var eq2 = board2.create('text',[-1.2,-0.3,function(){if(s.Value()==0){
+	if(c.Value()>=0 && d.Value()>=0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\sin['+1*b.Value().toFixed(1)+'(x-'+Math.abs(c.Value().toFixed(1))+')]+'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else if (c.Value()>=0 && d.Value()<0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\sin['+1*b.Value().toFixed(1)+'(x-'+Math.abs(c.Value().toFixed(1))+')]-'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else if (c.Value()<0 && d.Value()>=0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\sin['+1*b.Value().toFixed(1)+'(x+'+Math.abs(c.Value().toFixed(1))+')]+'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else {
+	return '\\[y='+1*a.Value().toFixed(1)+'\\sin['+1*b.Value().toFixed(1)+'(x+'+Math.abs(c.Value().toFixed(1))+')]-'+Math.abs(d.Value().toFixed(1))+'\\]'
+
+	}
+
+
+
+} else {
+	if(c.Value()>=0 && d.Value()>=0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\cos['+1*b.Value().toFixed(1)+'(x-'+Math.abs(c.Value().toFixed(1))+')]+'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else if (c.Value()>=0 && d.Value()<0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\cos['+1*b.Value().toFixed(1)+'(x-'+Math.abs(c.Value().toFixed(1))+')]-'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else if (c.Value()<0 && d.Value()>=0){
+	return '\\[y='+1*a.Value().toFixed(1)+'\\cos['+1*b.Value().toFixed(1)+'(x+'+Math.abs(c.Value().toFixed(1))+')]+'+Math.abs(d.Value().toFixed(1))+'\\]'
+	} else {
+	return '\\[y='+1*a.Value().toFixed(1)+'\\cos['+1*b.Value().toFixed(1)+'(x+'+Math.abs(c.Value().toFixed(1))+')]-'+Math.abs(d.Value().toFixed(1))+'\\]'
+
+	}
+
+}
+}],{fontSize:20,fixed:true})
+
+/// The graphs
+var graph1 = board.create('functiongraph',
+  [function(x){if(s.Value()==0){
+    return a.Value()*Math.sin(b.Value()*(x - c.Value())) + d.Value()
+} else{
+	return a.Value()*Math.cos(b.Value()*(x - c.Value())) + d.Value()
+}
+  }],
+  {
+  StrokeColor:function(){if(s.Value()==0){
+	  return "green"
+  } else {
+	  return "red"
+  }
+
+},
+  strokeWidth:2,
+  });
+
+
+
+var check  = board2.create('checkbox',[-0.5,-0.8,'Show Labels'],{fixed:true})
+
+var p1 = board.create('point',[function(){
+	return 1/b.Value()*Math.PI/2 + c.Value()
+},function(){
+	return a.Value() + d.Value()
+}],{name:'',size:0
+})
+
+var p2 = board.create('point',[function(){
+	return 1/b.Value()*5*Math.PI/2 + c.Value()
+},function(){
+	return a.Value() + d.Value()
+}],{name:'',size:0
+})
+
+var period = board.create('segment',[p1,p2],{firstArrow: true, lastArrow:true,withLabel:true,name:"Period",visible: () => (check.Value() && s.Value()==0) ? true : false})
+
+var p3 = board.create('point',[function(){
+	return c.Value()
+},function(){
+	return a.Value() + d.Value()
+}],{name:'',size:0
+})
+
+var p4 = board.create('point',[function(){
+	return 1/b.Value()*2*Math.PI + c.Value()
+},function(){
+	return a.Value() + d.Value()
+}],{name:'',size:0
+})
+var period = board.create('segment',[p3,p4],{firstArrow: true, lastArrow:true,withLabel:true,name:"Period",visible: () => (check.Value() && s.Value()==1) ? true : false})
+
+var amp = board.create('segment',[[function(){return p2.X()},function(){return d.Value()}],p2],{color:'purple',lastArrow:true,withLabel:true,name:'Amplitude',
+visible: () => (check.Value() && s.Value()==0) ? true : false
+})
+
+var amp = board.create('segment',[[function(){return p4.X()},function(){return d.Value()}],p4],{color:'purple',lastArrow:true,withLabel:true,name:'Amplitude',
+visible: () => (check.Value() && s.Value()==1) ? true : false
+})
+var mid = board.create('line',[[0,function(){return d.Value()}],[1,function(){return d.Value()}]],{color:'orange',dash:2,
+visible: () => (check.Value()) ? true : false,withLabel:true,name:'Median Line'
+})
+
+
+var button1 = board2.create('button',[-1.2,-0.8,'Reset', function(){return a.setValue(1),b.setValue(1),c.setValue(0),d.setValue(0)}],{fixed:true});
+
+
+board.addChild(board2);
+board2.addChild(board);
+
+var im = board2.create('image',["https://www.mrkylebrown.com/Images/Logo.jpg", [-1.2,0.5], [1,0.5] ], {
+opacity:1,
+fixed:true
+});
+
+j2.style.width = "";
+j2.style.height = "";
+var theWidth = j2.getBoundingClientRect().width;
+var theHeight = j2.getBoundingClientRect().height;
+j2.resizeContainer(theWidth, theHeight);
+
+function actualResizeHandler() {
+	var DIVs = document.querySelectorAll('.jxgbox');
+	for(i=0; i<brds.length; i++) {
+		// Need to unset these so ccntaining DIV can change size
+		document.getElementById("j"+i).style.width = "";
+		document.getElementById("j"+i).style.height = "";
+		// Get width and height of (changed) containing DIV
+		var theWidth = document.getElementById("j"+i).getBoundingClientRect().width;
+		var theHeight = document.getElementById("j"+i).getBoundingClientRect().height;
+		// Now resize the board
+		brds[i].resizeContainer(theWidth, theHeight);
+	}
+}
+
+var isScrolling, scrolling = false;
+window.addEventListener('scroll', function ( event ) {
+	scrolling = true;
+	window.clearTimeout( isScrolling );
+	isScrolling = setTimeout(function() {
+		scrolling = false;
+	}, 66);
+}, false);
+
+window.addEventListener("resize", resizeThrottler, false);
+var resizeTimeout, actualResizeHandler;
+function resizeThrottler() {
+	if( !scrolling) {
+		if (!resizeTimeout) {
+			resizeTimeout = setTimeout(function() {
+				resizeTimeout = null;
+				if (typeof(actualResizeHandler) == "function") {
+					actualResizeHandler();
+				}
+			}, 500);
+		}
+	}
+}
+
+cellSize = window.innerWidth/400;
+for (el in board.objects) {
+  if (JXG.isPoint(board.objects[el])) {
+    board.objects[el].setAttribute({ size: cellSize.toFixed(0) });
+  }
+}
+
+  </script>
+
+  </body>
+</html>
