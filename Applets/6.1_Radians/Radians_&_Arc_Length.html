@@ -29,7 +29,7 @@ var board = JXG.JSXGraph.initBoard('j2', {
   var check = board.create('checkbox', [1.15, -0.7, 'show common angles'], { fixed: true })
 
 var c = board.create('point',[0,0],{visble:true,fixed:true, showInfobox: false,name:'',color:'blue'})
-var circ = board.create('circle',[c,1])
+var circ = board.create('circle',[c,1],{fillColor:'#FEF9E7',highlight:false})
 
 var p0 = board.create('point',[1,0],{fixed:true,size:0, showInfobox:false, name:''})
 var p1 = board.create('point',[function(){return Math.cos(1)} , function(){return Math.sin(1)}],{name:'',color:'blue', showInfobox: false, size: 0.5})
@@ -45,7 +45,7 @@ var p9 = board.create('point', [0, -1], { name: '', color: 'blue', showInfobox: 
 
 
 
-var g = board.create('glider',[1,0,circ],{ snapToPoints: true, attractorDistance: 0.2, name:'',showInfobox:false})
+var g = board.create('glider',[Math.cos(Math.PI/6),Math.sin(0.5),circ],{ snapToPoints: true, attractorDistance: 0.2, name:'',showInfobox:false})
 var arc = board.create('arc',[c,p0,g],{strokeColor:'green',strokeWidth:3})
 var b = board.create('segment',[c,p0],{strokeColor:'green',strokeWidth:3})
 var h = board.create('segment', [c, g], { strokeColor: 'blue', strokeWidth: 3, 
